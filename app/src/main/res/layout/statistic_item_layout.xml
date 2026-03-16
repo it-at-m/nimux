@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="stat"
+            type="de.muenchen.appcenter.nimux.util.PeakWeekStatDocument" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            style="?materialCardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="36dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:theme="@style/backgroundColoredCardStyleTheme"
+            app:cardCornerRadius="16dp">
+
+            <LinearLayout
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/stats_item_start_end_margin"
+                    android:layout_marginTop="@dimen/stats_item_start_end_margin"
+                    android:layout_marginEnd="@dimen/stats_item_start_end_margin">
+
+                    <TextView
+                        android:id="@+id/stats_item_prod_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/between_title_text_margin"
+                        android:text="@{stat.productName}"
+                        android:textAppearance="?textAppearanceHeadline4"
+                        android:textColor="?colorOnSurface"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/stats_item_prod_icon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/stats_item_prod_icon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:visibility="@{stat.producticon == 0 ? View.GONE : View.VISIBLE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/stats_item_prod_name"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/stats_item_start_end_margin"
+                    android:layout_marginTop="@dimen/stats_item_start_end_margin"
+                    android:layout_marginEnd="@dimen/stats_item_start_end_margin">
+
+                    <TextView
+                        android:id="@+id/highest_year_amount_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/between_title_text_margin"
+                        android:text="@{@string/stat_highest_amount_title(stat.productName)}"
+                        android:textAppearance="?textAppearanceHeadline6"
+                        app:layout_constraintEnd_toStartOf="@id/highest_year_amount"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/highest_year_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Integer.toString(stat.highestAmount)}"
+                        android:textAppearance="?textAppearanceHeadline6"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/highest_year_amount_title"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/highest_amount_date_range_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/stats_item_start_end_margin"
+                    android:layout_marginTop="@dimen/stat_item_between_margin"
+                    android:layout_marginEnd="@dimen/stats_item_start_end_margin"
+                    android:text="@{@string/stat_highest_week_title(stat.startOfHighestWeek, stat.endOfHighestWeek)}" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/stats_item_start_end_margin"
+                    android:layout_marginTop="@dimen/stats_item_start_end_margin"
+                    android:layout_marginEnd="@dimen/stats_item_start_end_margin">
+
+                    <TextView
+                        android:id="@+id/current_amount_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/between_title_text_margin"
+                        android:text="@string/stat_current_amount_title"
+                        android:textAppearance="?textAppearanceHeadline6"
+                        app:layout_constraintEnd_toStartOf="@id/current_amount"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/current_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Integer.toString(stat.currentAmount)}"
+                        android:textAppearance="?textAppearanceHeadline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/current_amount_title"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

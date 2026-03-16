@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_action_single_buy"
+        android:icon="@drawable/ic_round_home_24"
+        android:title="@string/single_buy_menu_title"/>
+
+    <item android:id="@+id/menu_action_multi_buy"
+        android:icon="@drawable/ic_round_add_shopping_cart_24"
+        android:title="@string/multi_buy_title"/>
+
+<!--    <item android:id="@+id/menu_action_dono"-->
+<!--        android:icon="@drawable/ic_round_volunteer_activism_24"-->
+<!--        android:title="@string/donate_amount_chip_text"/>-->
+</menu>

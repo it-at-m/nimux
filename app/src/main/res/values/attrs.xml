@@ -1,0 +1,37 @@
+<resources>
+    <declare-styleable name="FullscreenAttrs">
+        <attr name="fullscreenBackgroundColor" format="color" />
+        <attr name="fullscreenTextColor" format="color" />
+    </declare-styleable>
+    <attr name="colorPastelgreen" format="color"/>
+    <attr name="colorOnPastelgreen" format="color"/>
+    <attr name="colorPastelgreenContainer" format="color"/>
+    <attr name="colorOnPastelgreenContainer" format="color"/>
+    <attr name="harmonizePastelgreen" format="boolean"/>
+
+    <attr name="colorAmethyst" format="color" />
+    <attr name="colorOnAmethyst" format="color" />
+    <attr name="colorAmethystContainer" format="color" />
+    <attr name="colorOnAmethystContainer" format="color" />
+    <attr name="harmonizeAmethyst" format="boolean" />
+    <attr name="colorMagenta" format="color" />
+    <attr name="colorOnMagenta" format="color" />
+    <attr name="colorMagentaContainer" format="color" />
+    <attr name="colorOnMagentaContainer" format="color" />
+    <attr name="harmonizeMagenta" format="boolean" />
+    <attr name="colorOrange" format="color" />
+    <attr name="colorOnOrange" format="color" />
+    <attr name="colorOrangeContainer" format="color" />
+    <attr name="colorOnOrangeContainer" format="color" />
+    <attr name="harmonizeOrange" format="boolean" />
+    <attr name="colorCapri" format="color" />
+    <attr name="colorOnCapri" format="color" />
+    <attr name="colorCapriContainer" format="color" />
+    <attr name="colorOnCapriContainer" format="color" />
+    <attr name="harmonizeCapri" format="boolean" />
+    <attr name="colorSeagreen" format="color" />
+    <attr name="colorOnSeagreen" format="color" />
+    <attr name="colorSeagreenContainer" format="color" />
+    <attr name="colorOnSeagreenContainer" format="color" />
+    <attr name="harmonizeSeagreen" format="boolean" />
+</resources>

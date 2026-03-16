@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:nestedScrollingEnabled="true"
+    android:orientation="vertical"
+    tools:context="de.muenchen.appcenter.nimux.view.main.help.HelpFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:id="@+id/help_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/help_item_layout" />
+
+</FrameLayout>

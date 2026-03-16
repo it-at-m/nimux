@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="de.muenchen.appcenter.nimux.viewmodel.manage.products.AddProductViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.showProgressBar ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/button_layout"
+            app:layout_constraintTop_toTopOf="@id/top_layout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/default_layout_padding"
+                android:transitionName="addProductTransition">
+
+
+                <TextView
+                    android:id="@+id/add_product_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_product_title"
+                    android:textAppearance="?textAppearanceHeadline3"
+                    android:textColor="?colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/add_product_input_name"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_seperation_margin"
+                    android:hint="@string/productname"
+                    android:importantForAutofill="no"
+                    app:errorEnabled="true"
+                    app:helperText="@string/name_edittext_helper"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_product_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:importantForAutofill="no"
+                        android:inputType="textNoSuggestions|textCapWords"
+                        android:singleLine="true"
+                        android:text="@={viewModel.productName}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/add_product_price_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:text="@string/price_title"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintBaseline_toBaselineOf="@id/add_product_input_price"
+                    app:layout_constraintEnd_toStartOf="@id/add_product_input_price"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/add_product_input_price"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/group_seperation_margin"
+                    android:layout_marginBottom="8dp"
+                    android:importantForAutofill="no"
+                    app:endIconDrawable="@drawable/ic_round_euro_symbol_24"
+                    app:endIconMode="custom"
+                    app:endIconTint="?colorOnSurface"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/add_product_price_title"
+                    app:layout_constraintTop_toBottomOf="@id/add_product_input_name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:importantForAutofill="no"
+                        android:inputType="textNoSuggestions|numberDecimal"
+                        android:maxLength="5"
+                        android:singleLine="true"
+                        android:text="@={viewModel.productPrice}"
+                        android:textAlignment="viewEnd" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/add_product_choose_icon_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/choose_icon_title"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintBaseline_toBaselineOf="@id/add_product_choose_icon"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/add_product_choose_icon"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/group_seperation_margin"
+                    android:drawableEnd="@drawable/ic_round_arrow_drop_down_24"
+                    android:text="@string/none"
+                    android:textColor="?colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_product_input_price" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/add_product_refillable_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_seperation_margin"
+                    android:checked="@{viewModel.refillable}"
+                    android:onClick="@{() -> viewModel.changeRefill()}"
+                    android:text="@string/refillable_switch_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_product_choose_icon"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/refill_views_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_seperation_margin"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_product_refillable_switch">
+
+
+                    <TextView
+                        android:id="@+id/current_stock_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/current_stock"
+                        android:textAppearance="?textAppearanceBody1"
+                        app:layout_constraintBaseline_toBaselineOf="@id/current_stock_input_layout"
+                        app:layout_constraintEnd_toStartOf="@id/current_stock_input_layout"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/current_stock_input_layout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin"
+                        app:errorEnabled="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/current_stock_title"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:importantForAutofill="no"
+                            android:inputType="textNoSuggestions|numberSigned"
+                            android:maxLength="7"
+                            android:singleLine="true"
+                            android:text="@={viewModel.productStock}"
+                            android:textAlignment="viewEnd" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <TextView
+                        android:id="@+id/refill_size_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="@dimen/default_margin"
+                        android:text="@string/refill_size_title"
+                        android:textAppearance="?textAppearanceBody1"
+                        app:layout_constraintBaseline_toBaselineOf="@id/refill_size_layout"
+                        app:layout_constraintEnd_toStartOf="@id/refill_size_layout"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/refill_size_layout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/group_seperation_margin"
+                        app:errorEnabled="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/refill_size_title"
+                        app:layout_constraintTop_toBottomOf="@id/current_stock_input_layout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:importantForAutofill="no"
+                            android:inputType="textNoSuggestions|numberSigned"
+                            android:maxLength="7"
+                            android:singleLine="true"
+                            android:text="@={viewModel.productRefillSize}"
+                            android:textAlignment="viewEnd" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/default_layout_padding"
+            android:paddingTop="@dimen/button_layout_padding"
+            android:paddingEnd="@dimen/default_layout_padding"
+            android:paddingBottom="@dimen/button_layout_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/add_product_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:onClick="@{() -> viewModel.addProduct()}"
+                android:text="@string/add_product"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/cancel_add_product"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/default_margin"
+                android:onClick="@{() -> viewModel.cancelAdd()}"
+                android:text="@string/cancel"
+                app:layout_constraintBaseline_toBaselineOf="@id/add_product_button"
+                app:layout_constraintEnd_toStartOf="@id/add_product_button" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

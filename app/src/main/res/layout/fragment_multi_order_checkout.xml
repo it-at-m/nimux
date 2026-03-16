@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="user"
+            type="de.muenchen.appcenter.nimux.model.User" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/multi_order_checkout_card"
+            style="?materialCardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="72dp"
+            android:theme="@style/backgroundColoredCardStyleTheme"
+            android:transitionGroup="true"
+            android:transitionName="@string/multi_order_checkout_card_trans_name"
+            tools:context=".view.main.specialorder.MultiOrderCheckoutFragment">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:transitionGroup="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:transitionGroup="true">
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/progress_bar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:indicatorColor="?colorPastelgreenContainer"
+                        app:indicatorDirectionLinear="startToEnd"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="?android:colorBackground"
+                        app:trackCornerRadius="20dp"
+                        app:trackThickness="6dp"
+                        tools:ignore="PrivateResource" />
+
+                    <ImageView
+                        android:id="@+id/check_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="24dp"
+                        android:contentDescription="@string/multi_order_checkout_icon_description"
+                        android:src="@drawable/ic_symbol_shopping_bag"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/user_name_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="@dimen/default_margin"
+                        android:text="@{user.name}"
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                        android:textColor="?colorOnBackground"
+                        android:transitionName="@string/multi_order_checkout_user_name_trans_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/old_credit_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginEnd="@dimen/default_margin"
+                        android:layout_marginBottom="@dimen/default_margin"
+                        android:text="@string/old_credit_title"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintEnd_toStartOf="@id/old_credit"
+                        app:layout_constraintTop_toBottomOf="@id/user_name_title" />
+
+                    <TextView
+                        android:id="@+id/old_credit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:text="@{@string/money(user.toPay)}"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:textColor="?colorOnBackground"
+                        android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBaseline_toBaselineOf="@id/old_credit_title"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/overview_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="24dp"
+                        app:layout_constraintBottom_toTopOf="@id/total_amount_title"
+                        app:layout_constraintTop_toBottomOf="@id/old_credit_title"
+                        tools:listitem="@layout/multi_order_overview_rv_layout" />
+
+                    <TextView
+                        android:id="@+id/total_amount_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/total"
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                        app:layout_constraintBottom_toTopOf="@id/new_credit_title"
+                        app:layout_constraintEnd_toStartOf="@id/total_amount" />
+
+                    <TextView
+                        android:id="@+id/total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/zero_euro"
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                        app:layout_constraintBaseline_toBaselineOf="@id/total_amount_title"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/new_credit_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/new_credit_title"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toTopOf="@id/home_checkout_low_credit_warn_soft"
+                        app:layout_constraintEnd_toStartOf="@id/new_credit" />
+
+                    <TextView
+                        android:id="@+id/new_credit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/new_credit_title"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBaseline_toBaselineOf="@id/new_credit_title"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/home_checkout_low_credit_warn_soft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="12dp"
+                        android:text="@string/home_checkout_credit_low_warn_soft"
+                        android:textAlignment="center"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:textColor="?colorError"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@id/button_layout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/button_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_layout_padding"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <Button
+                            android:id="@+id/cancel_button"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/default_margin"
+                            android:text="@string/cancel"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <Button
+                            android:id="@+id/confirm_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/default_margin"
+                            android:text="@string/confirm"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:ignore="ButtonStyle" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+</layout>

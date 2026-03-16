@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="de.muenchen.appcenter.nimux.viewmodel.manage.products.ProductItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.showProgressBar ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_layout"
+            app:layout_constraintTop_toTopOf="@id/top_layout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/default_layout_padding">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/header_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/product_item_icon"
+                        android:layout_width="@dimen/item_icon_topright_size"
+                        android:layout_height="@dimen/item_icon_topright_size"
+                        android:contentDescription="@string/product_icon_description"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/product_item_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_margin"
+                        android:text="@{viewModel.product.name}"
+                        android:textAppearance="?textAppearanceHeadline3"
+                        android:textColor="?colorOnBackground"
+                        app:layout_constraintEnd_toStartOf="@id/product_item_icon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/product_price_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_seperation_margin"
+                    android:text="@string/price_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/header_layout" />
+
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_margin"
+                    android:text="@{viewModel.sPrice}"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Headline4Normal"
+                    android:textColor="?colorOnBackground"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/product_price_title" />
+
+                <TextView
+                    android:id="@+id/product_item_amount_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_seperation_margin"
+                    android:text="@string/items_left_title"
+                    android:visibility="@{viewModel.product.refillSize > 0 ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/product_price" />
+
+                <TextView
+                    android:id="@+id/product_item_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_margin"
+                    android:text="@{viewModel.sStock}"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Headline4Normal"
+                    android:textColor="?colorOnBackground"
+                    android:textStyle="normal"
+                    android:visibility="@{viewModel.product.refillSize > 0 ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/product_item_amount_title" />
+
+                <TextView
+                    android:id="@+id/product_item_add_amount_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_seperation_margin"
+                    android:text="@string/select_amount"
+                    android:visibility="@{viewModel.product.refillSize > 0 ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/product_item_amount" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/product_item_add_amount_chip_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_margin"
+                    android:checkedButton="@={viewModel.checkedButton}"
+                    android:onCheckedChanged="@{() -> viewModel.checkedChanged()}"
+                    android:visibility="@{viewModel.product.refillSize > 0 ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintTop_toBottomOf="@id/product_item_add_amount_title"
+                    app:selectionRequired="true"
+                    app:singleLine="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_refill1"
+                        style="@style/Widget.MyTheme.ChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.sRefill1}" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_refill2"
+                        style="@style/Widget.MyTheme.ChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.sRefill2}" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_refill3"
+                        style="@style/Widget.MyTheme.ChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.sRefill3}" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_product_other"
+                        style="@style/Widget.MyTheme.ChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/other" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/manage_product_custom_amount_layout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_margin"
+                    android:visibility="gone"
+                    app:errorEnabled="true"
+                    app:helperText="@string/custom_amount_helper"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/product_item_add_amount_chip_group">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/manage_product_custom_amount_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number|textNoSuggestions"
+                        android:maxLength="5"
+                        android:singleLine="true"
+                        android:text="@={viewModel.customAmount}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/default_layout_padding"
+            android:paddingTop="@dimen/button_layout_padding"
+            android:paddingEnd="@dimen/default_layout_padding"
+            android:paddingBottom="@dimen/button_layout_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/manage_product_add_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:onClick="@{() -> viewModel.addStockClick()}"
+                android:text="@string/add_amount"
+                android:visibility="@{viewModel.product.refillSize > 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/manage_product_cancel_button"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/default_margin"
+                android:text="@string/cancel"
+                app:layout_constraintBaseline_toBaselineOf="@id/manage_product_add_button"
+                app:layout_constraintEnd_toStartOf="@id/manage_product_add_button" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.manage.suggestUser.SuggestUserFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/user_settings_card_person"
+        style="?cardViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/default_margin_mid"
+        android:animateLayoutChanges="true"
+        android:theme="@style/backgroundColoredCardStyleTheme">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true">
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:animateLayoutChanges="true"
+                android:fadeScrollbars="true"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/button_layout"
+                app:layout_constraintTop_toTopOf="@id/top_layout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:padding="@dimen/default_margin_large"
+                    android:transitionName="addUserTransition">
+
+                    <TextView
+                        android:id="@+id/hint_text_top"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin_large"
+                        android:layout_marginTop="@dimen/group_seperation_margin"
+                        android:layout_marginEnd="@dimen/default_margin_large"
+                        android:text="@string/suggest_user_hint"
+                        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                        android:alpha="0.8"
+                        android:textColor="?colorOnBackground"
+                        app:layout_constraintTop_toBottomOf="@id/name_input_layout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/name_input_layout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin_large"
+                        android:layout_marginEnd="@dimen/default_margin_large"
+                        android:hint="@string/name"
+                        android:importantForAutofill="no"
+                        app:errorEnabled="true"
+                        app:helperText="@string/name_edittext_helper"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/UserNameEditTextStyle"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switch_show_credit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin_large"
+                        android:layout_marginTop="@dimen/group_seperation_margin"
+                        android:layout_marginEnd="@dimen/default_margin_large"
+                        android:checked="true"
+                        android:text="@string/credit_visible_switch"
+                        app:layout_constraintTop_toBottomOf="@id/hint_text_top" />
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switch_process_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin_large"
+                        android:layout_marginTop="@dimen/group_margin"
+                        android:layout_marginEnd="@dimen/default_margin_large"
+                        android:checked="true"
+                        android:text="@string/collect_data"
+                        app:layout_constraintTop_toBottomOf="@id/switch_show_credit" />
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switch_require_pin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin_large"
+                        android:layout_marginTop="@dimen/group_margin"
+                        android:layout_marginEnd="@dimen/default_margin_large"
+                        android:text="@string/pin_confirmation_switch"
+                        app:layout_constraintTop_toBottomOf="@id/switch_process_data" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_layout_select_pin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin_large"
+                        android:layout_marginEnd="@dimen/default_margin_large"
+                        android:layout_marginBottom="@dimen/default_margin"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/switch_require_pin">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/pin_text_layout"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/enter_pin"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="4"
+                            app:errorEnabled="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAutofill="no"
+                                android:inputType="numberPassword"
+                                android:maxLength="4"
+                                android:singleLine="true" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/confirm_pin_text_layout"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/confirm_pin"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="4"
+                            app:errorEnabled="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/pin_text_layout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAutofill="no"
+                                android:inputType="numberPassword"
+                                android:maxLength="4"
+                                android:singleLine="true" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin_large"
+                android:layout_marginEnd="@dimen/default_margin_large"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/default_layout_padding"
+                android:paddingTop="@dimen/button_layout_padding"
+                android:paddingEnd="@dimen/default_layout_padding"
+                android:paddingBottom="@dimen/button_layout_padding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <Button
+                    android:id="@+id/button_suggest_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height"
+                    android:text="@string/suggest_user_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

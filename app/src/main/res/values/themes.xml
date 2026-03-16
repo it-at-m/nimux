@@ -1,0 +1,77 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
+        <!--        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>-->
+        <!--        <item name="android:shadowColor">@color/md_theme_light_shadow</item>-->
+        <item name="colorPrimaryInverse">@color/md_theme_light_primaryInverse</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="colorPastelgreen">#006e19</item>
+        <item name="colorOnPastelgreen">#ffffff</item>
+        <item name="colorPastelgreenContainer">#92f990</item>
+        <item name="colorOnPastelgreenContainer">#002203</item>
+        <item name="harmonizePastelgreen">true</item>
+
+        <item name="colorAmethyst">#dab9ff</item>
+        <item name="colorOnAmethyst">#ffffff</item>
+        <item name="colorAmethystContainer">#eedbff</item>
+        <item name="colorOnAmethystContainer">#2a0053</item>
+        <item name="harmonizeAmethyst">true</item>
+        <item name="colorMagenta">#ffafd7</item>
+        <item name="colorOnMagenta">#ffffff</item>
+        <item name="colorMagentaContainer">#ffd8e9</item>
+        <item name="colorOnMagentaContainer">#3c0028</item>
+        <item name="harmonizeMagenta">true</item>
+        <item name="colorOrange">#ffb869</item>
+        <item name="colorOnOrange">#ffffff</item>
+        <item name="colorOrangeContainer">#ffdcbb</item>
+        <item name="colorOnOrangeContainer">#2b1700</item>
+        <item name="harmonizeOrange">true</item>
+        <item name="colorCapri">#79d1ff</item>
+        <item name="colorOnCapri">#ffffff</item>
+        <item name="colorCapriContainer">#c3e8ff</item>
+        <item name="colorOnCapriContainer">#001e2c</item>
+        <item name="harmonizeCapri">true</item>
+        <item name="colorSeagreen">#00dfc1</item>
+        <item name="colorOnSeagreen">#ffffff</item>
+        <item name="colorSeagreenContainer">#45fcdd</item>
+        <item name="colorOnSeagreenContainer">#00201b</item>
+        <item name="harmonizeSeagreen">true</item>
+    </style>
+
+
+    <style name="AppTheme.Fullscreen" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/Widget.AppTheme.ActionBar.Fullscreen</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+    </style>
+
+    <style name="ThemeOverlay.Nimux.FullscreenContainer" parent="" />
+</resources>

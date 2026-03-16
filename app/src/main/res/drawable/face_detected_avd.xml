@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="288dp"
+            android:height="288dp"
+            android:viewportWidth="48"
+            android:viewportHeight="48">
+            <path
+                android:name="path_3"
+                android:pathData="M 19.3 38.2 L 19.3 37.4 L 28.6 37.4 L 23.8 27.7 Q 23.75 27.5 23.675 27.225 Q 23.6 26.95 23.6 26.65 L 23.6 22.8 L 24.4 22.8 L 24.4 26.8 L 28.95 36.05 Q 29.15 36.3 29.25 36.575 Q 29.35 36.85 29.35 37.15 Q 29.35 37.7 28.975 37.95 Q 28.6 38.2 28.05 38.2 Z M 14.5 26.4 Q 13.1 26.4 12.1 25.4 Q 11.1 24.4 11.1 23 Q 11.1 21.6 12.1 20.6 Q 13.1 19.6 14.5 19.6 Q 15.9 19.6 16.9 20.6 Q 17.9 21.6 17.9 23 Q 17.9 24.4 16.9 25.4 Q 15.9 26.4 14.5 26.4 Z M 33.5 26.4 Q 32.1 26.4 31.1 25.4 Q 30.1 24.4 30.1 23 Q 30.1 21.6 31.1 20.6 Q 32.1 19.6 33.5 19.6 Q 34.9 19.6 35.9 20.6 Q 36.9 21.6 36.9 23 Q 36.9 24.4 35.9 25.4 Q 34.9 26.4 33.5 26.4 Z M 9 14 L 8.4 13.4 Q 9.7 12.55 11.075 12.125 Q 12.45 11.7 14 11.7 Q 15.55 11.7 16.925 12.125 Q 18.3 12.55 19.6 13.4 L 19 14 Q 17.9 13.3 16.625 12.9 Q 15.35 12.5 14 12.5 Q 12.65 12.5 11.375 12.9 Q 10.1 13.3 9 14 Z M 29 14 L 28.4 13.4 Q 29.7 12.55 31.075 12.125 Q 32.45 11.7 34 11.7 Q 35.55 11.7 36.925 12.125 Q 38.3 12.55 39.6 13.4 L 39 14 Q 37.9 13.3 36.625 12.9 Q 35.35 12.5 34 12.5 Q 32.65 12.5 31.375 12.9 Q 30.1 13.3 29 14 Z"
+                android:fillColor="#ffffff"/>
+        </vector>
+    </aapt:attr>
+    <target android:name="path_3">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="fillAlpha"
+                android:duration="600"
+                android:valueFrom="0"
+                android:valueTo="1"
+                android:valueType="floatType"
+                android:interpolator="@android:anim/accelerate_interpolator"/>
+        </aapt:attr>
+    </target>
+</animated-vector>

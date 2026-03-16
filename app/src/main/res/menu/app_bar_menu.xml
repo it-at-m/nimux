@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="@string/help_action_title"
+        app:showAsAction="always"
+        android:id="@+id/menu_action_help"
+        android:orderInCategory="900"
+        android:icon="@drawable/ic_round_question_mark_24"/>
+    <item
+        android:title="@string/lock_action_title"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1000"
+        android:id="@+id/menu_action_lock"
+        android:icon="@drawable/ic_round_power_settings_new_24"/>
+    <item
+        android:title="@string/feedback"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="100"
+        android:id="@+id/menu_action_feedback"
+        android:icon="@drawable/ic_baseline_feedback_24"/>
+</menu>

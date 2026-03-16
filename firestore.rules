@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // User darf eigenes Mapping lesen
+    match /userTenants/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    // Help-Collection: nur lesen für eingeloggte User
+    match /helpCollection/{document=**} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // Tenant-Zuordnung
+    function getTenantId() {
+      return get(/databases/$(database)/documents/userTenants/$(request.auth.uid)).data.tenantId;
+    }
+
+    // Tenant-Daten geschützt
+    match /tenants/{tenantId}/{document=**} {
+      allow read, write: if request.auth != null
+        && getTenantId() == tenantId;
+    }
+    
+    // feedback-Collection kann geschrieben werden wenn eingeloggt
+    match /feedback/{document=**} {
+  		allow create: if request.auth != null;
+  		allow read: if false;
+  		allow update, delete: if false;
+		}
+    // UtilCollection (nur lesen)
+		match /UtilCollection/{document=**} {
+  		allow read: if true;  // oder request.auth != null
+  		allow write: if false;
+		}
+
+
+  }
+}

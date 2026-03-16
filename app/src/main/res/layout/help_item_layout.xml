@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="de.muenchen.appcenter.nimux.view.main.help.HelpAdapter.HelpItemClickListener" />
+
+        <variable
+            name="helpItem"
+            type="de.muenchen.appcenter.nimux.model.HelpItem" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/help_card"
+        style="@style/HelpItemCardStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:onClick="@{(view) -> listener.onItemClick(helpItem, view)}"
+        android:transitionName="@{@string/help_item_card_trans_name(helpItem.title)}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/help_title_tv"
+                style="@style/HelpItemTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:transitionName="@{@string/help_item_title_trans_name(helpItem.title)}" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

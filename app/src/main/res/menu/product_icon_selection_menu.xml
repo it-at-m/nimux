@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/product_icon_none"
+        android:title="@string/none" />
+    <item
+        android:id="@+id/product_icon_cup"
+        android:title="@string/cup"
+        android:icon="@drawable/ic_round_free_breakfast_24" />
+    <item
+        android:id="@+id/product_icon_tea"
+        android:title="@string/tea_icon_name"
+        android:icon="@drawable/ic_baseline_emoji_food_beverage_24" />
+    <item
+        android:id="@+id/product_icon_bottle"
+        android:title="@string/bottle"
+        android:icon="@drawable/ic_bottle_wine" />
+    <item
+        android:id="@+id/product_icon_water"
+        android:title="@string/water"
+        android:icon="@drawable/ic_round_local_drink_24" />
+    <item
+        android:id="@+id/product_icon_fastfood"
+        android:title="@string/fastfood"
+        android:icon="@drawable/ic_round_fastfood_24" />
+    <item
+        android:id="@+id/product_icon_fridge"
+        android:title="@string/fridge"
+        android:icon="@drawable/ic_round_kitchen_24" />
+    <item
+        android:id="@+id/product_icon_can"
+        android:title="@string/product_icon_can_name"
+        android:icon="@drawable/ic_coke_can" />
+    <item
+        android:id="@+id/product_icon_cookie"
+        android:title="@string/cookie"
+        android:icon="@drawable/ic_round_cookie_24" />
+    <item
+        android:id="@+id/product_icon_icecream"
+        android:title="@string/ice_cream_icon_name"
+        android:icon="@drawable/ic_baseline_icecream_24" />
+    <item
+        android:id="@+id/product_icon_pizza"
+        android:title="@string/pizza_icon_name"
+        android:icon="@drawable/ic_baseline_local_pizza_24" />
+    <item
+        android:id="@+id/product_icon_egg"
+        android:title="@string/egg_icon_name"
+        android:icon="@drawable/ic_baseline_egg_24" />
+</menu>

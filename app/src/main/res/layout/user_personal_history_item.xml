@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/default_margin"
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+        android:text="TIMESTAMP"
+        android:id="@+id/date" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginTop="@dimen/group_margin"
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+        android:textStyle="bold"
+        android:text="Description"
+        android:id="@+id/description" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/group_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:text="@string/amount_price_title"
+        android:id="@+id/amount_title" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/amount_title"
+        app:layout_constraintStart_toEndOf="@id/amount_title"
+        android:layout_marginStart="@dimen/group_margin"
+        android:layout_marginTop="@dimen/group_margin"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:text="@string/amount_price_title"
+        android:id="@+id/amount" />
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        style="@style/Widget.Material3.MaterialDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

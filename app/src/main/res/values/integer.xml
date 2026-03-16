@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="motion_short">200</integer>
+    <integer name="motion_short_start_offset">100</integer>
+    <integer name="motion_short_start_offset_half">0</integer>
+    <integer name="motion_medium">300</integer>
+    <integer name="motion_long">400</integer>
+    <integer name="motion_face_scan_anim_duration">1000</integer>
+</resources>
