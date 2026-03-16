@@ -11,10 +11,10 @@ plugins {
 
 android {
     compileSdkVersion 36
-    namespace = "de.muenchen.appcenter.nimux"
+    namespace = "com.example.demo.nimux"
 
     defaultConfig {
-        applicationId "de.muenchen.appcenter.nimux"
+        applicationId "com.example.demo.nimux"
         minSdkVersion 31
         targetSdkVersion 36
         versionCode 300

@@ -10,6 +10,7 @@
 ![Language](https://img.shields.io/badge/language-Kotlin-blue)
 ![Backend](https://img.shields.io/badge/backend-Firebase-yellow)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 [![Made with love by it@M][made-with-love-shield]][itm-opensource]
 
 **NIMux – Everything under control, smartly organized.**
@@ -56,11 +57,10 @@ All libraries are licensed under the Apache License 2.0 unless otherwise noted.
 ## Set up
 
 1. Clone the repository: git clone https://github.com/it-at-m/nimux.git
-
 2. Create a new Firebase project.
 3. Enable the Authentication module with email and password.
 4. Enable Firestore and create a new database with default settings.
-5. Start a new collection named "UtilCollection" with document "AlloCreateAccount" which contains field "allow" with boolean value true or false.
+5. Start a new collection named "UtilCollection" with document "AllowCreateAccount" which contains field "allow" with boolean value true or false.
 6. Add a new collection "tenants" and add a document; e.g. "tenant_demo"
 7. Add a new collection "userTenants". Use it to map users to tenants and role. Therefore add a new document with the user id copied from Firebase Authentication. Inside the document create the field "role" with the value "admin" or "access" and the field "tenantId" with the name of the tenant; e.g. "tenant_demo"
 8. Add a new collection "helpCollection". If you want you can provide Knowledgebase-articles inside the app. Therefore add a new document with the fields "body" (string), "orderPos" (number) and "title" (string).
@@ -121,10 +121,3 @@ it@M - opensource@muenchen.de
 [made-with-love-shield]: https://img.shields.io/badge/made%20with%20%E2%9D%A4%20by-it%40M-yellow?style=for-the-badge
 
 [itm-opensource]: https://opensource.muenchen.de/
-
-- check all files in repo
-- rename application id before push project
-- push to github
-- security scan der apk
-- create public play store presence
-- cleanup firebase kaffekasse appcenter und google play console
