@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="user"
+            type="de.muenchen.appcenter.nimux.model.User" />
+
+        <variable
+            name="product"
+            type="de.muenchen.appcenter.nimux.model.Product" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/button_manual_user_select"
+            android:layout_height="0dp"
+            android:layout_margin="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/checkout_card"
+                style="?materialCardViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/checkout_card_margin"
+                android:layout_marginTop="@dimen/checkout_card_margin_tobo"
+                android:layout_marginEnd="@dimen/checkout_card_margin"
+                android:layout_marginBottom="@dimen/checkout_card_margin_tobo"
+                android:elevation="8dp"
+                android:theme="@style/backgroundColoredCardStyleTheme"
+                android:transitionName="@string/checkout_card_trans_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/checkout_progress_start"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:indicatorColor="?colorPastelgreenContainer"
+                        app:indicatorDirectionLinear="endToStart"
+                        app:layout_constraintEnd_toStartOf="@id/checkout_progress_end"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="?colorSurface"
+                        app:trackThickness="6dp"
+                        tools:ignore="PrivateResource" />
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/checkout_progress_end"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:indicatorColor="?colorPastelgreenContainer"
+                        app:indicatorDirectionLinear="startToEnd"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/checkout_progress_start"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="?colorSurface"
+                        app:trackThickness="6dp"
+                        tools:ignore="PrivateResource" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/home_checkout_product_item_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_marginStart="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/default_layout_padding"
+                        android:layout_marginEnd="@dimen/default_margin"
+                        android:background="?colorPastelgreenContainer"
+                        android:src="@drawable/ic_round_check_24"
+                        android:tint="?colorOnPastelgreenContainer"
+                        app:contentPadding="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearanceOverlay="@style/ThemeOverlay.App.RoundImage"
+                        tools:ignore="PrivateResource" />
+
+                    <TextView
+                        android:id="@+id/home_checkout_low_credit_warn_soft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_layout_padding"
+                        android:text="@string/home_checkout_credit_low_warn_soft"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:textColor="?colorError"
+                        android:visibility="@{user.toPay-product.price>0.0 ? View.GONE : View.VISIBLE}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_checkout_user_new_credit_title" />
+
+
+                    <TextView
+                        android:id="@+id/home_checkout_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_layout_padding"
+                        android:textAppearance="?textAppearanceHeadline5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_checkout_product_item_icon" />
+
+                    <TextView
+                        android:id="@+id/home_checkout_user_credit_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/checkout_cost_border_margin"
+                        android:layout_marginTop="@dimen/default_layout_padding"
+                        android:text="@string/old_credit_title"
+                        android:textAppearance="?textAppearanceBody2"
+                        android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintEnd_toStartOf="@id/home_checkout_user_credit"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_checkout_title" />
+
+                    <TextView
+                        android:id="@+id/home_checkout_user_credit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin"
+                        android:layout_marginEnd="@dimen/checkout_cost_border_margin"
+                        android:text="@{@string/money(user.toPay)}"
+                        android:textAppearance="?textAppearanceBody2"
+                        android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBaseline_toBaselineOf="@id/home_checkout_user_credit_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/home_checkout_user_credit_title" />
+
+                    <TextView
+                        android:id="@+id/home_checkout_product_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/checkout_cost_border_margin"
+                        android:layout_marginTop="@dimen/side_margin"
+                        android:text="@{product.name}"
+                        android:textAppearance="?textAppearanceBody2"
+                        app:layout_constraintEnd_toStartOf="@id/home_checkout_product_cost"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_checkout_user_credit_title" />
+
+                    <TextView
+                        android:id="@+id/home_checkout_product_cost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin"
+                        android:layout_marginEnd="@dimen/checkout_cost_border_margin"
+                        android:text="@{@string/substract_money(product.price)}"
+                        android:textAppearance="?textAppearanceBody2"
+                        app:layout_constraintBaseline_toBaselineOf="@id/home_checkout_product_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/home_checkout_product_name" />
+
+
+                    <TextView
+                        android:id="@+id/home_checkout_user_new_credit_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/checkout_cost_border_margin"
+                        android:layout_marginTop="@dimen/default_layout_padding"
+                        android:text="@string/new_credit_title"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:textStyle="bold"
+                        android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintEnd_toStartOf="@id/home_checkout_user_new_credit"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_checkout_product_name" />
+
+                    <TextView
+                        android:id="@+id/home_checkout_user_new_credit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin"
+                        android:layout_marginEnd="@dimen/checkout_cost_border_margin"
+                        android:text="@{@string/money(user.toPay - product.price)}"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:textStyle="bold"
+                        android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBaseline_toBaselineOf="@id/home_checkout_user_new_credit_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/home_checkout_user_new_credit_title" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_checkout_low_credit_warn_soft">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/home_checkout_button_cancel"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/default_margin"
+                            android:text="@string/cancel" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/home_checkout_button_close"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/default_margin"
+                            android:text="@string/confirm"
+                            app:layout_constraintBaseline_toBaselineOf="@id/home_checkout_button_cancel"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/home_checkout_button_cancel" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_manual_product_select"
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_margin="@dimen/default_margin_large"
+            android:text="@string/select_product_manually_button"
+            app:icon="@drawable/ic_round_free_breakfast_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/button_manual_user_select" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_manual_user_select"
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_margin="@dimen/default_margin_large"
+            android:text="@string/select_user_manually_button"
+            app:icon="@drawable/ic_round_person_scan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

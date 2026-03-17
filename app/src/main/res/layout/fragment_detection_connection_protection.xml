@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="de.muenchen.appcenter.nimux.viewmodel.PasswordViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.manage.ManageStuffFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/lock_icon"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/ic_lock_48"
+            app:layout_constraintBottom_toTopOf="@id/password_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_input_layout"
+            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="12dp"
+            android:focusedByDefault="false"
+            android:hint="@string/password"
+            app:errorEnabled="true"
+            app:helperText="@string/password_helper_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lock_icon"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MyTheme.SmallComponent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:text="@={viewModel.pwText}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="12dp"
+            android:onClick="@{() -> viewModel.checkPW()}"
+            android:text="@string/confirm"
+            app:layout_constraintEnd_toEndOf="@id/password_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/password_input_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

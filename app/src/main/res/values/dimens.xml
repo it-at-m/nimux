@@ -1,0 +1,44 @@
+<resources>
+    <dimen name="m3_layout_elevation">8dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="small_margin">4dp</dimen>
+    <dimen name="default_margin">12dp</dimen>
+    <dimen name="default_margin_mid">16dp</dimen>
+    <dimen name="default_margin_large">20dp</dimen>
+    <dimen name="checkout_card_margin_tobo">48dp</dimen>
+    <dimen name="ausgeben_card_margin_start_end">12dp</dimen>
+    <dimen name="side_margin">8dp</dimen>
+    <dimen name="card_border_padding">16dp</dimen>
+    <dimen name="button_height">54dp</dimen>
+    <dimen name="default_layout_padding">16dp</dimen>
+    <dimen name="button_layout_bottom_margin">8dp</dimen>
+    <dimen name="narrow_content_tablet">0dp</dimen>
+
+    <dimen name="button_layout_margin">@dimen/default_layout_padding</dimen>
+    <dimen name="group_seperation_margin">16dp</dimen>
+    <dimen name="group_margin">4dp</dimen>
+    <dimen name="item_icon_topright_size">96dp</dimen>
+    <dimen name="rv_product_icon_size">48dp</dimen>
+    <dimen name="button_layout_padding">12dp</dimen>
+    <dimen name="checkout_card_margin">250dp</dimen>
+
+    <dimen name="checkout_cost_border_margin">20dp</dimen>
+    <dimen name="tablet_layout_width">500dp</dimen>
+    <dimen name="default_vertical_margin">12dp</dimen>
+    <dimen name="default_horizontal_margin">12dp</dimen>
+    <dimen name="stats_item_start_end_margin">24dp</dimen>
+    <dimen name="stat_item_between_margin">12dp</dimen>
+    <dimen name="between_title_text_margin">12dp</dimen>
+
+    <dimen name="feedback_sites_margin">24dp</dimen>
+    <dimen name="feedback_tops_margin">16dp</dimen>
+    <dimen name="overview_card_margin_startend">16dp</dimen>
+    <dimen name="statistics_layout_grids_height">1300dp</dimen>
+
+</resources>

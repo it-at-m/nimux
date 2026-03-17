@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="de.muenchen.appcenter.nimux.model.DonateItem" />
+
+        <variable
+            name="user"
+            type="de.muenchen.appcenter.nimux.model.User" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.main.specialorder.DonationConfirmFragment">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/parent_cardview"
+            style="?cardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin_large"
+            android:theme="@style/backgroundColoredCardStyleTheme"
+            android:transitionName="@string/trans_card_ausgeben_confirm"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:indicatorColor="?colorPastelgreenContainer"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:trackColor="?colorSurface" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:text="@{@string/donation_confirm_card_title(item.amount)}"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:textColor="?colorOnSurface"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:text="@{item.userName}"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                    android:textColor="?colorOnSurface"
+                    android:transitionName="@string/trans_name_ausgeben_confirm"
+                    android:visibility="@{item.anon ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/credit_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:text="@string/old_credit_title"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textColor="?colorOnSurface"
+                    android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toStartOf="@id/credit"
+                    app:layout_constraintTop_toTopOf="@id/credit" />
+
+                <TextView
+                    android:id="@+id/credit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:text="@{@string/money(user.toPay)}"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textColor="?colorOnSurface"
+                    android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/name_title" />
+
+                <TextView
+                    android:id="@+id/cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:text="@{@string/substract_money(item.amount)}"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textColor="?colorOnSurface"
+                    android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/credit" />
+
+                <TextView
+                    android:id="@+id/new_credit_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:text="@string/new_credit_title"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    android:textColor="?colorOnSurface"
+                    android:textStyle="bold"
+                    android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toStartOf="@id/new_credit"
+                    app:layout_constraintTop_toTopOf="@id/new_credit" />
+
+                <TextView
+                    android:id="@+id/new_credit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:text="@{@string/money(user.toPay - item.amount)}"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    android:textColor="?colorOnSurface"
+                    android:textStyle="bold"
+                    android:visibility="@{user.showCredit || user.pin!=null ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cost" />
+
+                <TextView
+                    android:id="@+id/time_limit_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textColor="?colorOnSurface"
+                    android:visibility="@{item.timeLimit > 0 ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/button_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/new_credit_title">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_margin="@dimen/button_layout_margin"
+                        android:text="@string/confirm"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_cancel"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_margin="@dimen/button_layout_margin"
+                        android:text="@string/cancel"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/button_confirm"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+</layout>

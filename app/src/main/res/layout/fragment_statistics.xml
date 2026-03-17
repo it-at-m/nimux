@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.main.statistics.StatisticsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/left_grid"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/right_grid"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/statistics_layout_grids_height"
+                android:columnCount="1"
+                android:rowCount="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <LinearLayout
+                    android:layout_rowWeight="0.4"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="@dimen/default_margin_mid"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StatsTitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_bought_chart_title" />
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pie_total_stats"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/default_margin_mid" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_rowWeight="0.3"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="@dimen/default_margin_mid"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StatsTitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/charts_title_face_detect" />
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pie_face_recon_stats"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/default_margin_mid" />
+                </LinearLayout>
+            </GridLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/right_grid"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/left_grid"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/statistics_layout_grids_height"
+                android:layout_columnWeight="0.5"
+                android:columnCount="1"
+                android:rowCount="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/left_grid"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_rowWeight="0.22"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="@dimen/default_margin_mid"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StatsTitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/most_sold_weekly_chart_title" />
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/weekly_best_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/default_margin_mid" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_rowWeight="0.22"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="@dimen/default_margin_mid"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StatsTitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/current_week_chart_title" />
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/weekly_current_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/default_margin_mid" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_rowWeight="0.22"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="@dimen/default_margin_mid"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StatsTitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/charts_title_week_average" />
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/weekly_average_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/default_margin_mid" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_rowWeight="0.22"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="@dimen/default_margin_mid"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StatsTitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/buys_over_the_last_months" />
+
+                    <com.github.mikephil.charting.charts.HorizontalBarChart
+                        android:id="@+id/last_months_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/default_margin_mid" />
+                </LinearLayout>
+            </GridLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,17 @@
+*.iml
+.gradle
+.idea/*
+!.idea/codeStyles
+!.idea/runConfigurations
+/local.properties
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/.idea/deploymentTargetSelector.xml
+# Keystore files (WICHTIG: niemals committen!)
+*.jks
+*.keystore
+Keystore

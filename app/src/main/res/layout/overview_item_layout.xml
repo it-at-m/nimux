@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/overview_item_card"
+        android:theme="@style/backgroundColoredCardStyleTheme"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/overview_card_margin_startend"
+        android:layout_marginTop="@dimen/side_margin"
+        android:layout_marginEnd="@dimen/overview_card_margin_startend"
+        android:layout_marginBottom="@dimen/side_margin">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/card_border_padding">
+
+            <TextView
+                android:id="@+id/overview_item_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/overview_item_credit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/overview_item_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="0,00€"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@id/overview_item_name"
+                app:layout_constraintStart_toEndOf="@id/overview_item_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>
+

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="de.muenchen.appcenter.nimux.view.main.store.EditUserCustomizationViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="de.muenchen.appcenter.nimux.view.main.store.EditUserCustomizationFragment">
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:gravity="end"
+            android:text="@string/user_customization_preview_title"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+            app:layout_constraintBottom_toBottomOf="@id/user_preview_card"
+            app:layout_constraintEnd_toStartOf="@+id/user_preview_card"
+            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/user_preview_card" />
+
+        <include
+            android:id="@+id/user_preview_card"
+            layout="@layout/home_user_rv_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@id/text_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/homeUserCardStyle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/default_margin_large"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin_large"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:theme="@style/backgroundColoredCardStyleTheme"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_preview_card">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ScrollView
+                    android:id="@+id/scrollview"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:fadeScrollbars="true"
+                    android:scrollbars="vertical"
+                    app:layout_constraintBottom_toTopOf="@id/button_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/default_margin_large"
+                        android:paddingEnd="@dimen/default_margin_large">
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/bold_switch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_margin_large"
+                            android:checked="@{viewModel.fakeUser.boldEnabled}"
+                            android:enabled="@{viewModel.realUser.boldEnabled != null}"
+                            android:onCheckedChanged="@{ () -> viewModel.switchBoldStyle()}"
+                            android:text="@string/switch_name_bold" />
+
+                        <Button
+                            android:id="@+id/button_unlock_bold"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="@dimen/group_margin"
+                            android:text="@string/button_unlock_bold_name"
+                            android:visibility="@{viewModel.realUser.boldEnabled == null ? View.VISIBLE : View.GONE}" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_margin"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:alpha="@{viewModel.realUser.emojiIcon == null ? 0.6f : 1f}"
+                                android:text="@string/select_favorite_emoji_title"
+                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/enter_emoji_input_layout"
+                                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/default_margin_large"
+                                android:enabled="@{viewModel.realUser.emojiIcon!=null}"
+                                android:hint="@string/enter_emoji_hint">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:inputType="textShortMessage"
+                                    android:text="@{viewModel.fakeUser.emojiIcon}"
+                                    android:longClickable="false" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/button_unlock_emoji"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/unlock_emoji_button"
+                            android:visibility="@{viewModel.realUser.emojiIcon == null ? View.VISIBLE : View.GONE}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_margin"
+                            android:text="@string/select_color_name_title"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/group_seperation_margin"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:background="?colorOnBackground"
+                                    app:shapeAppearanceOverlay="@style/ThemeOverlay.App.RoundImage" />
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:background="?colorAmethyst"
+                                    app:shapeAppearanceOverlay="@style/ThemeOverlay.App.RoundImage" />
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:background="?colorMagenta"
+                                    app:shapeAppearanceOverlay="@style/ThemeOverlay.App.RoundImage" />
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:background="?colorOrange"
+                                    app:shapeAppearanceOverlay="@style/ThemeOverlay.App.RoundImage" />
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:background="?colorCapri"
+                                    app:shapeAppearanceOverlay="@style/ThemeOverlay.App.RoundImage" />
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:layout_marginBottom="@dimen/group_margin"
+                                    android:background="?colorSeagreen"
+                                    app:shapeAppearanceOverlay="@style/ThemeOverlay.App.RoundImage" />
+
+                            </LinearLayout>
+
+                            <RadioGroup
+                                android:id="@+id/name_color_radio_group"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:id="@+id/radio_color_default"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:text="@string/name_color_default" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_color_amethyst"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:enabled="@{viewModel.realUser.nameColor != null}"
+                                    android:text="@string/name_color_1" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_color_magenta"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:enabled="@{viewModel.realUser.nameColor != null}"
+                                    android:text="@string/name_color_2" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_color_orange"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:enabled="@{viewModel.realUser.nameColor != null}"
+                                    android:text="@string/name_color_3" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_color_capri"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:enabled="@{viewModel.realUser.nameColor != null}"
+                                    android:text="@string/name_color_4" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_color_sea_green"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="@dimen/group_margin"
+                                    android:enabled="@{viewModel.realUser.nameColor != null}"
+                                    android:text="@string/name_color_5" />
+                            </RadioGroup>
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/button_unlock_color"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/unlock_color_button"
+                            android:visibility="@{viewModel.realUser.nameColor == null ? View.VISIBLE : View.GONE}" />
+
+                    </LinearLayout>
+                </ScrollView>
+
+                <LinearLayout
+                    android:id="@+id/button_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:gravity="end"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/scrollview">
+
+                    <Button
+                        android:id="@+id/button_cancel"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_margin"
+                        android:text="@string/cancel" />
+
+                    <Button
+                        android:id="@+id/button_save_changes"
+                        style="@style/ShapeAppearanceOverlay.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="@string/save_changes" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

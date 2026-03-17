@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_log_card"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/side_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/side_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/default_layout_padding">
+
+            <TextView
+                android:id="@+id/user_log_timestamp"
+                android:textAppearance="?textAppearanceOverline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="timestamp" />
+
+            <TextView
+                android:id="@+id/user_log_user_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="UserID"
+                android:textAppearance="?textAppearanceHeadline6" />
+
+            <TextView
+                android:id="@+id/user_log_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textAppearance="?textAppearanceBody1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/user_log_amount_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/amount_log_title"
+                    android:textAppearance="?textAppearanceBody1" />
+                <TextView
+                    android:id="@+id/user_log_amount"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0000"
+                    android:textAppearance="?textAppearanceBody1" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</FrameLayout>

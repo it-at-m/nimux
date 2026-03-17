@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="de.muenchen.appcenter.nimux.viewmodel.manage.users.EditUserViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.manage.users.EditUserFragment">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fadeScrollbars="false"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@id/button_layout"
+            app:layout_constraintTop_toTopOf="@id/top_layout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/default_layout_padding"
+                android:paddingEnd="@dimen/default_layout_padding"
+                android:paddingBottom="@dimen/default_layout_padding">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/user_settings_card_person"
+                    style="?cardViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:theme="@style/backgroundColoredCardStyleTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/edit_user_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{@string/edit_title(viewModel.user.name)}"
+                            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                            android:textColor="?colorOnBackground"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/edit_user_credit_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_margin"
+                            android:text="@string/credit"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                            android:textColor="?colorOnBackground"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/edit_user_title" />
+
+                        <TextView
+                            android:id="@+id/edit_user_credit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_margin"
+                            android:text="@{@string/money(viewModel.user.toPay)}"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                            android:textColor="?colorOnBackground"
+                            app:layout_constraintStart_toEndOf="@id/edit_user_credit_title"
+                            app:layout_constraintTop_toBottomOf="@id/edit_user_title" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/user_settings_card_ai"
+                    style="?cardViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:theme="@style/backgroundColoredCardStyleTheme"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_settings_card_person">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_settings_section_title_ai"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                            android:textColor="?colorPrimary" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/edit_user_add_facial_data_button"
+                            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_margin"
+                            android:text="@string/add_facial_data_button"
+                            android:visibility="visible"
+                            app:icon="@drawable/ic_outline_add_reaction_24" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/edit_user_delete_facial_data_button"
+                            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_margin"
+                            android:text="@string/delete_facial_data_button_text"
+                            android:visibility="gone"
+                            app:icon="@drawable/ic_outline_face_retouching_off_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/edit_user_credit_title" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/face_replaces_pin_switch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="@{viewModel.faceSkipsPin}"
+                            android:onClick="@{() -> viewModel.switchFaceSkipsPin()}"
+                            android:text="@string/face_replaces_pin_switch_text" />
+
+                        <TextView
+                            android:id="@+id/face_replaces_pin_hint_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.7"
+                            android:drawablePadding="@dimen/default_margin"
+                            android:text="@string/face_replace_pin_hint_text"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textColor="?colorError" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/user_settings_card_privacy"
+                    style="?cardViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:theme="@style/backgroundColoredCardStyleTheme"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_settings_card_ai">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_settings_section_title_privacy"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                            android:textColor="?colorPrimary" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/edit_user_credit_visible_switch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_margin"
+                            android:checked="@{viewModel.showCredit}"
+                            android:onClick="@{() -> viewModel.switchShowCredit()}"
+                            android:text="@string/credit_visible_switch"
+                            app:layout_constraintTop_toBottomOf="@id/face_replaces_pin_hint_tv" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/edit_user_process_data_switch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="@{viewModel.processData}"
+                            android:onClick="@{() -> viewModel.switchProcessData()}"
+                            android:text="@string/collect_data"
+                            app:layout_constraintTop_toBottomOf="@id/edit_user_credit_visible_switch" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/user_settings_card_pin"
+                    style="?cardViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:animateLayoutChanges="true"
+                    android:theme="@style/backgroundColoredCardStyleTheme"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_settings_card_privacy">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_margin"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_settings_section_title_pin"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                            android:textColor="?colorPrimary" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/edit_user_require_pin_switch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="@{viewModel.requirePin}"
+                            android:onClick="@{()->viewModel.switchRequirePin()}"
+                            android:text="@string/pin_confirmation_switch"
+                            app:layout_constraintTop_toBottomOf="@id/edit_user_process_data_switch" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/edit_user_enter_pin_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/default_margin"
+                            android:visibility="@{viewModel.makeNewPIN ? View.VISIBLE : View.GONE}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/edit_user_require_pin_switch">
+
+                            <TextView
+                                android:id="@+id/new_pin_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/default_margin"
+                                android:text="@string/setup_pin"
+                                android:textAppearance="?textAppearanceCaption"
+                                android:textColor="?colorPrimary"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/edit_user_enter_first_pin"
+                                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:hint="@string/enter_pin"
+                                app:counterEnabled="true"
+                                app:counterMaxLength="4"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/new_pin_title">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:importantForAutofill="no"
+                                    android:inputType="numberPassword"
+                                    android:maxLength="4"
+                                    android:singleLine="true"
+                                    android:text="@={viewModel.newPinText}" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/edit_user_confirm_first_pin"
+                                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/confirm_pin"
+                                app:counterEnabled="true"
+                                app:counterMaxLength="4"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/edit_user_enter_first_pin">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:importantForAutofill="no"
+                                    android:inputType="numberPassword"
+                                    android:maxLength="4"
+                                    android:singleLine="true"
+                                    android:text="@={viewModel.confirmNewPinText}" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/edit_user_change_pin_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/default_margin"
+                            android:visibility="@{viewModel.changePin ? View.VISIBLE : View.GONE}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/edit_user_require_pin_switch">
+
+                            <TextView
+                                android:id="@+id/change_pin_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/default_margin"
+                                android:text="@string/change_pin"
+                                android:textAppearance="?textAppearanceCaption"
+                                android:textColor="?colorPrimary"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/edit_user_confirm_old_pin"
+                                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:hint="@string/enter_old_pin"
+                                app:counterEnabled="true"
+                                app:counterMaxLength="4"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/change_pin_title">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:importantForAutofill="no"
+                                    android:inputType="numberPassword"
+                                    android:maxLength="4"
+                                    android:singleLine="true"
+                                    android:text="@={viewModel.oldPinText}" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/edit_user_enter_new_pin"
+                                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/enter_new_pin"
+                                app:counterEnabled="true"
+                                app:counterMaxLength="4"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/edit_user_confirm_old_pin">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:importantForAutofill="no"
+                                    android:inputType="numberPassword"
+                                    android:maxLength="4"
+                                    android:singleLine="true"
+                                    android:text="@={viewModel.newPinText}" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/edit_user_confirm_new_pin"
+                                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/confirm_pin"
+                                app:counterEnabled="true"
+                                app:counterMaxLength="4"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/edit_user_enter_new_pin">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:importantForAutofill="no"
+                                    android:inputType="numberPassword"
+                                    android:maxLength="4"
+                                    android:singleLine="true"
+                                    android:text="@={viewModel.confirmNewPinText}" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/default_layout_padding"
+            android:paddingTop="@dimen/button_layout_padding"
+            android:paddingEnd="@dimen/default_layout_padding"
+            android:paddingBottom="@dimen/button_layout_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/edit_user_save_changes"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:onClick="@{()->viewModel.saveChanges(false)}"
+                android:text="@string/save_changes"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/edit_user_cancel"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/default_margin"
+                android:onClick="@{() -> viewModel.cancel()}"
+                android:text="@string/cancel"
+                app:layout_constraintBaseline_toBaselineOf="@id/edit_user_save_changes"
+                app:layout_constraintEnd_toStartOf="@id/edit_user_save_changes" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

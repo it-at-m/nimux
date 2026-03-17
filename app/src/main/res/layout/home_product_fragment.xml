@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="user"
+            type="de.muenchen.appcenter.nimux.model.User" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/home_product_complete_layout"
+        style="?materialCardViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="24dp"
+        android:theme="@style/backgroundColoredCardStyleTheme"
+        android:transitionName="@string/home_user_detail_transition_name">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:animateLayoutChanges="true"
+            android:layout_height="match_parent"
+            android:transitionGroup="false">
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/other_options_button_home_product"
+                style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
+                android:layout_width="wrap_content"
+                android:elevation="0dp"
+                android:shadowColor="@android:color/transparent"
+                android:outlineAmbientShadowColor="@android:color/transparent"
+                android:outlineSpotShadowColor="@android:color/transparent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:contentDescription="@string/FAB_other_options_home_prod_description"
+                android:text="@string/more_options_home_product_button"
+                app:icon="@drawable/ic_round_expand_more_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="p" />
+
+            <TextView
+                android:id="@+id/home_product_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:text="@{user.name}"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textColor="?colorOnBackground"
+                android:transitionGroup="false"
+                android:transitionName="@string/home_user_name_detail_transition_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/home_product_user_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/money(user.toPay)}"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?colorOnBackground"
+                android:transitionGroup="false"
+                android:visibility="@{user.showCredit ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBaseline_toBaselineOf="@id/home_product_user_credit_title"
+                app:layout_constraintStart_toEndOf="@id/home_product_user_credit_title" />
+
+            <TextView
+                android:id="@+id/home_product_user_credit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:text="@string/credit"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?colorOnBackground"
+                android:transitionGroup="false"
+                android:visibility="@{user.showCredit ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/home_product_user_name" />
+
+            <FrameLayout
+                android:id="@+id/single_buy_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:transitionGroup="true"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/home_product_user_credit_title">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_product_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:fadeScrollbars="true"
+                    android:paddingTop="6dp"
+                    android:scrollbars="vertical"
+                    android:transitionGroup="true"
+                    tools:listitem="@layout/home_product_rv_layout" />
+            </FrameLayout>
+
+            <GridLayout
+                android:id="@+id/multi_order_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:columnCount="2"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/home_product_user_credit_title">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/product_rv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="24dp"
+                    android:fadeScrollbars="true"
+                    android:scrollbars="vertical"
+                    tools:listitem="@layout/multi_order_product_rv_layout" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_columnWeight="0.8"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/horizontal_divider_main"
+                        style="@style/Widget.MaterialComponents.MaterialDivider"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="24dp" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_columnWeight="0.8"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:paddingTop="@dimen/side_margin">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/overview_rv"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_margin="24dp"
+                            android:fadeScrollbars="true"
+                            android:scrollbars="vertical"
+                            app:layout_constraintBottom_toTopOf="@id/total_amount_layout"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:listitem="@layout/multi_order_overview_rv_layout" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/total_amount_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="24dp"
+                            app:layout_constraintBottom_toTopOf="@id/confirm_purchase_button">
+
+                            <TextView
+                                android:id="@+id/total_amount_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/total"
+                                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/total_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/zero_euro"
+                                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <Button
+                            android:id="@+id/confirm_purchase_button"
+                            style="@style/Widget.Material3.Button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
+                            android:text="@string/confirm_purchase_button_text"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </GridLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dono_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/home_product_user_credit_title">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:animateLayoutChanges="true"
+                    android:fadeScrollbars="true"
+                    android:scrollbars="vertical"
+                    app:layout_constraintBottom_toTopOf="@id/button_layout"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="12dp"
+                        android:animateLayoutChanges="true"
+                        android:padding="@dimen/default_margin"
+                        android:paddingTop="@dimen/side_margin"
+                        android:transitionGroup="false">
+
+                        <TextView
+                            android:id="@+id/select_amount_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/default_margin"
+                            android:layout_marginTop="@dimen/group_seperation_margin"
+                            android:layout_marginEnd="@dimen/default_margin"
+                            android:layout_marginBottom="@dimen/default_margin"
+                            android:text="@string/select_amount_donate_title"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/select_donate_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/default_margin"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/select_amount_title"
+                            app:selectionRequired="true"
+                            app:singleSelection="true">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/select_donate_chip_10"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10€" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/select_donate_chip_20"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="20€" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/select_donate_chip_30"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="30€" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/select_donate_chip_40"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="40€" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/select_donate_chip_50"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="50€" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/select_donate_chip_75"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="75€" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/select_donate_chip_100"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="100€" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/select_donate_chip_custom"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/custom_amount_helper" />
+                        </com.google.android.material.chip.ChipGroup>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/custom_amount_edit_text_layout"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/default_margin"
+                            android:visibility="gone"
+                            app:endIconDrawable="@drawable/ic_round_euro_symbol_24"
+                            app:endIconMode="custom"
+                            app:endIconTint="@color/black"
+                            app:errorEnabled="true"
+                            app:helperText="@string/custom_amount_helper"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/select_donate_group">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/custom_amount_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal|textNoSuggestions"
+                                android:maxLength="6"
+                                android:singleLine="true" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/select_amount_options_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/default_margin"
+                            android:layout_marginTop="@dimen/group_seperation_margin"
+                            android:layout_marginEnd="@dimen/default_margin"
+                            android:layout_marginBottom="@dimen/default_margin"
+                            android:text="@string/options_donate_title"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/custom_amount_edit_text_layout" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/default_margin"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/select_amount_options_title">
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switch_display_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/donate_display_name_switch" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switch_time_limit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/donate_set_time_limit_switch" />
+
+                            <LinearLayout
+                                android:id="@+id/time_limit_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/group_seperation_margin"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:id="@+id/select_time_limit_title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/time_limit_selection_title"
+                                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/home_product_user_credit_title" />
+
+                                <com.google.android.material.chip.ChipGroup
+                                    android:id="@+id/select_time_group"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/default_margin"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/select_amount_title"
+                                    app:selectionRequired="true"
+                                    app:singleSelection="true">
+
+                                    <com.google.android.material.chip.Chip
+                                        android:id="@+id/select_time_chip_one_hour"
+                                        style="@style/Widget.Material3.Chip.Filter"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/chip_one_hour" />
+
+                                    <com.google.android.material.chip.Chip
+                                        android:id="@+id/select_time_chip_two_hours"
+                                        style="@style/Widget.Material3.Chip.Filter"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/chip_two_hours" />
+
+                                    <com.google.android.material.chip.Chip
+                                        android:id="@+id/select_time_chip_end_of_day"
+                                        style="@style/Widget.Material3.Chip.Filter"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/chip_end_of_day" />
+
+                                    <com.google.android.material.chip.Chip
+                                        android:id="@+id/select_time_chip_end_of_week"
+                                        style="@style/Widget.Material3.Chip.Filter"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/chip_end_of_week" />
+
+                                    <com.google.android.material.chip.Chip
+                                        android:id="@+id/select_time_chip_manually"
+                                        style="@style/Widget.Material3.Chip.Filter"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/chip_time_manual" />
+
+                                </com.google.android.material.chip.ChipGroup>
+
+                                <com.google.android.material.materialswitch.MaterialSwitch
+                                    android:id="@+id/switch_readd_amount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/re_add_amount_switch_title" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.core.widget.NestedScrollView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/button_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_dono_confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_margin="@dimen/button_layout_margin"
+                        android:text="@string/confirm_purchase_button_text"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

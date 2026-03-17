@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.manage.users.AddUsersFaceFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/face_add_hint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="@string/face_add_hint"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="24dp"
+            android:background="?colorPrimaryContainer"
+            app:layout_constraintDimensionRatio="4:3"
+            app:layout_constraintTop_toBottomOf="@id/face_add_hint"
+            app:layout_constraintBottom_toTopOf="@id/sample_counter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.camera.view.PreviewView
+                android:id="@+id/previewView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:scaleType="fillCenter" />
+
+            <de.muenchen.appcenter.nimux.util.recognition.FaceOverlayView
+                android:id="@+id/faceoverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/sample_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Gesicht wird erfasst: "
+            app:layout_constraintTop_toBottomOf="@id/container"
+            app:layout_constraintBottom_toTopOf="@id/cancel_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Progress Indicator -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/status_progress_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:indeterminate="true"
+            app:layout_constraintTop_toBottomOf="@id/sample_counter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/status_textview" />
+
+        <!-- Status Text -->
+        <TextView
+            android:id="@+id/status_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/status_progress_indicator"
+            app:layout_constraintBottom_toBottomOf="@id/status_progress_indicator"
+            app:layout_constraintStart_toEndOf="@id/status_progress_indicator" />
+
+        <Button
+            android:id="@+id/cancel_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="@string/cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

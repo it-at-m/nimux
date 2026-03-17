@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="user"
+            type="de.muenchen.appcenter.nimux.model.User" />
+
+        <variable
+            name="listener"
+            type="de.muenchen.appcenter.nimux.view.main.home.UserAdapter.UserItemClickListener" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/home_user_item_card"
+            style="?materialCardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/side_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/side_margin"
+            android:onClick="@{(view) -> listener.onItemClick(user, view)}"
+            android:theme="@style/backgroundColoredCardStyleTheme"
+            android:transitionName="@{@string/home_user_transition_name(user.stringSortID)}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/card_border_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/user_emoji_icon"
+                    android:layout_height="wrap_content"
+                    android:text="@{user.emojiIcon}"
+                    android:visibility="@{user.emojiIcon != null ? View.VISIBLE : View.GONE}"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/home_user_item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:isBold="@{user.boldEnabled}"
+                    app:premiumColor="@{user.nameColor}"
+                    android:layout_marginStart="8dp"
+                    app:layout_goneMarginStart="0dp"
+                    android:text="@{user.name}"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:transitionName="@{@string/home_user_name_transition_name(user.stringSortID)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/user_emoji_icon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+</layout>

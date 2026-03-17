@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/manage_products_coord_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        tools:context=".view.manage.products.ManageProductsFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/product_list_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadeScrollbars="true"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/list_manage_product_view"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/addProductFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:contentDescription="@string/add_product"
+            android:text="@string/add_product"
+            android:transitionName="addUserTransition"
+            app:icon="@drawable/ic_round_add_24" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

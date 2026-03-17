@@ -1,0 +1,116 @@
+<resources>
+
+    <!--Bottom Sheets-->
+    <style name="ThemeOverlay.MyTheme.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/Animation.MyTheme.BottomSheet.Modal</item>
+        <item name="bottomSheetStyle">@style/Widget.MyTheme.BottomSheet.Modal</item>
+    </style>
+
+    <style name="Widget.MyTheme.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearanceOverlay">?attr/shapeAppearanceLargeComponent</item>
+    </style>
+
+    <!--Navigation Drawer-->
+    <style name="Widget.MyTheme.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="itemTextAppearance">?attr/textAppearanceBody2</item>
+    </style>
+
+    <style name="Widget.MyTheme.FilledEditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxCornerRadiusBottomStart">0dp</item>
+        <item name="boxCornerRadiusBottomEnd">0dp</item>
+    </style>
+
+    <style name="Widget.MyTheme.ButtonStyle" parent="Widget.MaterialComponents.Button" />
+
+    <style name="Widget.MyTheme.ChipStyle" parent="Widget.Material3.Chip.Filter">
+        <!--        <item name="chipBackgroundColor">?colorSurface</item>-->
+        <!--        <item name="cornerSize">4dp</item>-->
+        <!--        <item name="shapeAppearanceOverlay">@null</item>-->
+        <!--        <item name="chipStrokeWidth">1dp</item>-->
+        <!--        <item name="android:textAppearance">?textAppearanceBody1</item>-->
+        <!--        <item name="chipStrokeColor">?colorSecondary</item>-->
+        <!--        <item name="rippleColor">?colorPrimary</item>-->
+    </style>
+
+    <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+
+    </style>
+
+    <style name="ThemeOverlay.App.RoundImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+
+    <style name="Widget.AppTheme.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">#66000000</item>
+    </style>
+
+    <style name="Widget.AppTheme.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">#66000000</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+    <style name="M3BackgroundCardStyle" parent="Widget.Material3.CardView.Elevated">
+        <item name="colorPrimaryContainer">?colorPrimary</item>
+        <item name="cardCornerRadius">0dp</item>
+        <item name="cardElevation">@dimen/m3_layout_elevation</item>
+    </style>
+
+    <style name="backgroundColoredCardStyleTheme" parent="AppTheme">
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="materialCardViewStyle">@style/homeUserCardStyle</item>
+    </style>
+
+    <style name="homeUserCardStyle" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">?colorSurface</item>
+        <item name="cardCornerRadius">24dp</item>
+    </style>
+
+    <style name="specialButtonStyle" parent="Widget.Material3.Button.TonalButton.Icon">
+        <item name="backgroundTint">?colorSurfaceVariant</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:textColor">?colorOnSurfaceVariant</item>
+        <item name="iconTint">?colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="HelpItemCardStyle" parent="Widget.Material3.CardView.Filled">
+        <item name="android:animateLayoutChanges">true</item>
+        <item name="android:layout_marginTop">@dimen/small_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_margin</item>
+        <item name="android:layout_marginStart">@dimen/default_margin_large</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin_large</item>
+        <item name="cardBackgroundColor">?colorSurface</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="theme">@style/backgroundColoredCardStyleTheme</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="HelpItemTitleStyle" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:layout_margin">@dimen/default_layout_padding</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="HelpItemBodyStyle" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:layout_marginStart">@dimen/default_margin_large</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin_large</item>
+        <item name="android:layout_marginBottom">@dimen/default_layout_padding</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="StatsTitleStyle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="UserNameEditTextStyle" parent="ThemeOverlay.Material3.TextInputEditText">
+        <item name="android:digits">0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnmßäüöáàéèúùóòíì,QWERTZUIOPASDFGHJKLYXCVBNMßÄÜÖÁÀÉÈÚÙÓÒÍÌ,_,-, ,.</item>
+        <item name="android:inputType">textNoSuggestions|textCapWords</item>
+        <item name="singleLine">true</item>
+        <item name="android:lines">1</item>
+        <item name="android:importantForAutofill">no</item>
+    </style>
+</resources>

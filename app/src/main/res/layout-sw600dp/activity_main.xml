@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/act_main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <com.google.android.material.navigationrail.NavigationRailView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false"
+        android:outlineAmbientShadowColor="@android:color/transparent"
+        android:outlineSpotShadowColor="@android:color/transparent"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="48dp"
+        android:paddingTop="30dp"
+        app:elevation="@dimen/m3_layout_elevation"
+        app:labelVisibilityMode="selected"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/act_main_bg_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/act_main_nav_rail_menu"
+        tools:targetApi="p" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/act_main_bg_card"
+        style="@style/M3BackgroundCardStyle"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:outlineAmbientShadowColor="@android:color/transparent"
+        android:outlineSpotShadowColor="@android:color/transparent"
+        android:transitionGroup="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/nav_view"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="p">
+
+        <include
+            android:id="@+id/main_act_content"
+            layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

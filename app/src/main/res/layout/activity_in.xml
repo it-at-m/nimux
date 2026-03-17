@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:theme="@style/ThemeOverlay.Nimux.FullscreenContainer"
+    tools:context=".InActivity">
+
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/cam_preview_view"
+        android:layout_width="800dp"
+        android:layout_height="600dp"
+        android:visibility="invisible" />
+
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout
+        android:id="@+id/fullscreen_content"
+        android:transitionName="trans name required"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:id="@+id/touch_animation_helper_view"
+            android:layout_height="match_parent"
+            style="@style/M3BackgroundCardStyle"
+            android:visibility="invisible"
+            android:fitsSystemWindows="true"
+            android:transitionName="touch animation helper">
+
+            <TextView
+                android:id="@+id/face_detected_anim_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:fontFamily="@font/assistant_extralight"
+                android:scaleX="1.6"
+                android:scaleY="1.4"
+                android:text="@string/inactivity_face_detected_greeting"
+                android:textAppearance="@style/TextAppearance.Material3.DisplayLarge"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="@style/Widget.AppTheme.ButtonBar.Fullscreen"
+            android:layout_width="match_parent"
+            android:transitionGroup="false"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+</FrameLayout>

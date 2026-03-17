@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.muenchen.appcenter.nimux.view.main.store.StoreFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/title_card"
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/store_title_card_title"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/store_title_card_body"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/name_color_card"
+        style="@style/homeUserCardStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:theme="@style/backgroundColoredCardStyleTheme"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/name_bold_card"
+        app:layout_constraintStart_toEndOf="@id/emoji_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_color_card_title"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                android:textColor="?attr/colorSeagreen" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/change_color_card_body"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:textColor="?attr/colorSeagreen" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/name_bold_card"
+        style="@style/homeUserCardStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:theme="@style/backgroundColoredCardStyleTheme"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/select_user_button"
+        app:layout_constraintStart_toEndOf="@id/support_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_color_card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bold_card_title"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/emoji_card"
+        style="@style/homeUserCardStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:theme="@style/backgroundColoredCardStyleTheme"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/support_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/name_color_card"
+        app:layout_constraintTop_toBottomOf="@id/title_card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/emoji_card_emojis"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/emoji_card_title"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/support_card"
+        style="@style/homeUserCardStyle"
+        android:layout_width="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:theme="@style/backgroundColoredCardStyleTheme"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/name_color_card"
+        app:layout_constraintTop_toBottomOf="@id/emoji_card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/support_card_title"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/support_card_message"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"/>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/select_user_button"
+        style="@style/ThemeOverlay.Material3.Button.TonalButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:padding="16dp"
+        android:text="@string/buy_customizations_buitton"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/name_bold_card"
+        app:layout_constraintStart_toStartOf="@id/name_bold_card"
+        app:layout_constraintTop_toBottomOf="@id/name_bold_card" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

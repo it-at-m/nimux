@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.muenchen.appcenter.nimux.view.main.home.FaceReconFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/donate_cardview"
+            style="@style/Widget.Material3.CardView.Filled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin_large"
+            android:animateLayoutChanges="true"
+            android:transitionName="@string/home_dono_card_trans_name"
+            android:visibility="gone"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toStartOf="@id/container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/container">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin_large"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/donate_card_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/donation_card_title"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:textColor="?colorOnSurface"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/donate_card_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                    android:textColor="?colorOnSurface"
+                    android:transitionName="@string/home_dono_name_trans_name"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/default_margin_large"
+            android:transitionName="test name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/button_manual_user_select"
+            app:layout_constraintDimensionRatio="4:3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/donate_cardview"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/previewView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <de.muenchen.appcenter.nimux.util.recognition.FaceOverlayView
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_manual_user_select"
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin_large"
+            android:text="@string/select_user_manually_button"
+            app:icon="@drawable/ic_round_person_scan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

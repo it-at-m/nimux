@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_start">
+
+    <fragment
+        android:id="@+id/nav_home_manual"
+        android:name="de.muenchen.appcenter.nimux.view.main.home.HomeFragment"
+        android:label="@string/select_user"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_homeProductFragment"
+            app:destination="@id/homeProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_start"
+        android:name="de.muenchen.appcenter.nimux.view.StartFragment"
+        android:label="Start"
+        tools:layout="@layout/fragment_start">
+
+        <action
+            android:id="@+id/action_start_to_auto"
+            app:destination="@id/nav_home_auto"
+            app:popUpTo="@id/nav_start"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_start_to_manual"
+            app:destination="@id/nav_home_manual"
+            app:popUpTo="@id/nav_start"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_overview"
+        android:name="de.muenchen.appcenter.nimux.view.main.overview.OverviewFragment"
+        android:label="@string/overview"
+        tools:layout="@layout/fragment_overview">
+        <action
+            android:id="@+id/action_nav_overview_to_editUserFragment"
+            app:destination="@id/editUserFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_products"
+        android:name="de.muenchen.appcenter.nimux.view.manage.products.ProductsFragment"
+        android:label="@string/enter_password"
+        tools:layout="@layout/fragment_products">
+        <action
+            android:id="@+id/action_nav_products_to_manageProductsFragment"
+            app:destination="@id/manageProductsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_products"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_statistics"
+        android:name="de.muenchen.appcenter.nimux.view.main.statistics.StatisticsFragment"
+        android:label="@string/statistics"
+        tools:layout="@layout/fragment_statistics">
+        <action
+            android:id="@+id/action_nav_statistics_to_personalStatsSelectFragment"
+            app:destination="@id/personalStatsSelectFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_user"
+        android:name="de.muenchen.appcenter.nimux.view.manage.users.UsersFragment"
+        android:label="@string/enter_password"
+        tools:layout="@layout/fragment_users">
+        <action
+            android:id="@+id/action_nav_user_to_manageUsersFragment"
+            app:destination="@id/manageUsersFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_user"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageUsersFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.users.ManageUsersFragment"
+        android:label="@string/manage_users"
+        tools:layout="@layout/fragment_manage_users">
+        <action
+            android:id="@+id/action_manageUsersFragment_to_addUserFragment"
+            app:destination="@id/addUserFragment"
+            app:enterAnim="@anim/fab_enter_in"
+            app:exitAnim="@anim/fab_enter_out"
+            app:popEnterAnim="@anim/fab_pop_enter"
+            app:popExitAnim="@anim/fab_pop_exit" />
+        <action
+            android:id="@+id/action_manageUsersFragment_to_nav_user"
+            app:destination="@id/nav_user"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_user"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_manageUsersFragment_to_manageUserItem"
+            app:destination="@id/manageUserItem"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="adminLoggedIn"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/addUserFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.users.AddUserFragment"
+        android:label="@string/add_user"
+        tools:layout="@layout/fragment_add_user">
+        <action
+            android:id="@+id/action_addUserFragment_to_manageUsersFragment"
+            app:destination="@id/manageUsersFragment"
+            app:enterAnim="@anim/fab_action_complete_in"
+            app:exitAnim="@anim/fab_action_complete_out"
+            app:popUpTo="@id/manageUsersFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageUserItem"
+        android:name="de.muenchen.appcenter.nimux.view.manage.users.ManageUserItem"
+        android:label="@string/manage_user"
+        tools:layout="@layout/fragment_manage_user_item">
+        <argument
+            android:name="currentUser"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+        <action
+            android:id="@+id/action_delete_user"
+            app:destination="@id/manageUsersFragment"
+            app:enterAnim="@anim/item_deleted_enter"
+            app:exitAnim="@anim/item_deleted_exit"
+            app:popUpTo="@id/manageUsersFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_manageUserItem_to_editUserFragment"
+            app:destination="@id/editUserFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageProductsFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.products.ManageProductsFragment"
+        android:label="@string/manage_products"
+        tools:layout="@layout/fragment_manage_products">
+        <argument
+            android:name="adminLoggedIn"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_manageProductsFragment_to_addProductFragment"
+            app:destination="@id/addProductFragment"
+            app:enterAnim="@anim/fab_enter_in"
+            app:exitAnim="@anim/fab_enter_out"
+            app:popEnterAnim="@anim/fab_pop_enter"
+            app:popExitAnim="@anim/fab_pop_exit" />
+        <action
+            android:id="@+id/action_manageProductsFragment_to_productItemFragment"
+            app:destination="@id/productItemFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.products.AddProductFragment"
+        android:label="@string/add_product"
+        tools:layout="@layout/fragment_add_product">
+        <action
+            android:id="@+id/action_addProductFragment_to_manageProductsFragment"
+            app:destination="@id/manageProductsFragment"
+            app:enterAnim="@anim/fab_action_complete_in"
+            app:exitAnim="@anim/fab_action_complete_out"
+            app:popUpTo="@id/manageProductsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/productItemFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.products.ProductItemFragment"
+        android:label="@string/manage_product_item_title"
+        tools:layout="@layout/fragment_product_item">
+        <argument
+            android:name="currentProduct"
+            app:argType="de.muenchen.appcenter.nimux.model.Product" />
+        <action
+            android:id="@+id/action_delete_product"
+            app:destination="@id/manageProductsFragment"
+            app:enterAnim="@anim/item_deleted_enter"
+            app:exitAnim="@anim/item_deleted_exit"
+            app:popUpTo="@id/manageProductsFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_productItemFragment_to_editProductFragment"
+            app:destination="@id/editProductFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProductFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.products.EditProductFragment"
+        android:label="@string/edit_product_fragment_label"
+        tools:layout="@layout/fragment_edit_product">
+        <action
+            android:id="@+id/action_editProductFragment_to_productItemFragment"
+            app:destination="@id/productItemFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/productItemFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="product"
+            app:argType="de.muenchen.appcenter.nimux.model.Product" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeProductFragment"
+        android:name="de.muenchen.appcenter.nimux.view.main.home.HomeProductFragment"
+        android:label="@string/select_product_title"
+        tools:layout="@layout/home_product_fragment">
+        <argument
+            android:name="currentUser"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+        <action
+            android:id="@+id/action_homeProductFragment_to_homeCheckoutFragment"
+            app:destination="@id/homeCheckoutFragment" />
+        <argument
+            android:name="fromFaceRecon"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_homeProductFragment_to_multiOrderCheckoutFragment"
+            app:destination="@id/multiOrderCheckoutFragment" />
+        <action
+            android:id="@+id/action_homeProductFragment_to_ausgebenConfirmFragment"
+            app:destination="@id/ausgebenConfirmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editUserFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.users.EditUserFragment"
+        android:label="@string/edit_user"
+        tools:layout="@layout/edit_user_fragment">
+        <argument
+            android:name="currentUser"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+        <argument
+            android:name="comingFromOverview"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_editUserFragment_to_manageUserItem"
+            app:destination="@id/manageUserItem"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/manageUserItem"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_editUserFragment_to_nav_overview"
+            app:destination="@id/nav_overview"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_overview"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_editUserFragment_to_addUsersFaceFragment"
+            app:destination="@id/addUsersFaceFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_editUserFragment_to_userPersonalHistoryFragment"
+            app:destination="@id/userPersonalHistoryFragment"
+            app:enterAnim="@anim/fab_enter_in"
+            app:exitAnim="@anim/fab_enter_out"
+            app:popEnterAnim="@anim/fab_pop_enter"
+            app:popExitAnim="@anim/fab_pop_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="de.muenchen.appcenter.nimux.view.manage.history.HistoryFragment"
+        android:label="@string/enter_password"
+        tools:layout="@layout/history_fragment">
+        <action
+            android:id="@+id/action_nav_history_to_historyListFragment"
+            app:destination="@id/historyListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_history"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyListFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.history.HistoryListFragment"
+        android:label="@string/action_history"
+        tools:layout="@layout/fragment_history_list">
+        <action
+            android:id="@+id/action_historyListFragment_to_userLogDetailFragment"
+            app:destination="@id/userLogDetailFragment"
+            app:enterAnim="@anim/open_log_enter"
+            app:exitAnim="@anim/open_log_exit"
+            app:popEnterAnim="@anim/open_log_pop_enter"
+            app:popExitAnim="@anim/open_log_pop_exit" />
+        <action
+            android:id="@+id/action_historyListFragment_to_productLogDetailFragment"
+            app:destination="@id/productLogDetailFragment"
+            app:enterAnim="@anim/open_log_enter"
+            app:exitAnim="@anim/open_log_exit"
+            app:popEnterAnim="@anim/open_log_pop_enter"
+            app:popExitAnim="@anim/open_log_pop_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/productLogDetailFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.history.ProductLogDetailFragment"
+        android:label="@string/product_detail_fragment_label"
+        tools:layout="@layout/fragment_product_log_detail">
+        <argument
+            android:name="productlogitem"
+            app:argType="de.muenchen.appcenter.nimux.datasources.ProductLog" />
+    </fragment>
+    <fragment
+        android:id="@+id/userLogDetailFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.history.UserLogDetailFragment"
+        android:label="@string/user_detail_fragment_label"
+        tools:layout="@layout/fragment_user_log_detail">
+        <argument
+            android:name="userlogitem"
+            app:argType="de.muenchen.appcenter.nimux.datasources.UserLog" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeCheckoutFragment"
+        android:name="de.muenchen.appcenter.nimux.view.main.home.HomeCheckoutFragment"
+        android:label="@string/checkout_nav_löabel"
+        tools:layout="@layout/fragment_home_checkout">
+        <argument
+            android:name="user"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+        <argument
+            android:name="product"
+            app:argType="de.muenchen.appcenter.nimux.model.Product" />
+        <action
+            android:id="@+id/action_homeCheckoutFragment_to_nav_home_auto"
+            app:destination="@id/nav_home_auto"
+            app:enterAnim="@anim/fade_in_back"
+            app:popUpTo="@id/nav_home_auto"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeCheckoutFragment_to_nav_home_manual"
+            app:destination="@id/nav_home_manual"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="faceDetected"
+            app:argType="boolean" />
+        <argument
+            android:name="productDetected"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_homeCheckoutFragment_to_homeProductFragment"
+            app:destination="@id/homeProductFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="de.muenchen.appcenter.nimux.view.manage.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_nav_settings_to_detectionConnectionProtectionFragment"
+            app:destination="@id/detectionConnectionProtectionFragment" />
+        <action
+            android:id="@+id/action_nav_settings_to_changeMainPwFragment"
+            app:destination="@id/changeMainPwFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_home_auto"
+        android:name="de.muenchen.appcenter.nimux.view.main.home.FaceReconFragment"
+        android:label="@string/face_recon_fragment_title"
+        tools:layout="@layout/fragment_face_recon">
+        <action
+            android:id="@+id/action_nav_home_to_nav_home_manual"
+            app:destination="@id/nav_home_manual"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/nav_home_manual" />
+        <action
+            android:id="@+id/action_nav_home_auto_to_homeProductFragment"
+            app:destination="@id/homeProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_feedback"
+        android:name="de.muenchen.appcenter.nimux.view.main.FeedbackFragment"
+        android:label="@string/feedback"
+        tools:layout="@layout/fragment_feedback" />
+    <fragment
+        android:id="@+id/nav_manage_stuff"
+        android:name="de.muenchen.appcenter.nimux.view.manage.ManageStuffFragment"
+        android:label="@string/enter_password">
+        <action
+            android:id="@+id/action_nav_manage_stuff_to_manageOverviewFragment"
+            app:destination="@id/manageOverviewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_manage_stuff"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageOverviewFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.ManageOverviewFragment"
+        android:label="@string/admin_dashboard_title"
+        tools:layout="@layout/fragment_manage_overview">
+        <action
+            android:id="@+id/action_manageOverviewFragment_to_manageUsersFragment"
+            app:destination="@id/manageUsersFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_manageOverviewFragment_to_manageProductsFragment"
+            app:destination="@id/manageProductsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_manageOverviewFragment_to_historyListFragment"
+            app:destination="@id/historyListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_manageOverviewFragment_to_suggestedUsersFragment"
+            app:destination="@id/suggestedUsersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/multiOrderCheckoutFragment"
+        android:name="de.muenchen.appcenter.nimux.view.main.specialorder.MultiOrderCheckoutFragment"
+        android:label="@string/checkout_nav_löabel"
+        tools:layout="@layout/fragment_multi_order_checkout">
+        <argument
+            android:name="boughtProducts"
+            app:argType="de.muenchen.appcenter.nimux.model.MultiOrderProductListWithProduct[]" />
+        <argument
+            android:name="currentUser"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+        <argument
+            android:name="faceDetected"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_multiOrderCheckoutFragment_to_nav_home_auto"
+            app:destination="@id/nav_home_auto" />
+        <action
+            android:id="@+id/action_multiOrderCheckoutFragment_to_nav_home_manual"
+            app:destination="@id/nav_home_manual" />
+    </fragment>
+    <fragment
+        android:id="@+id/addUsersFaceFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.users.AddUsersFaceFragment"
+        android:label="@string/add_facial_data_button"
+        tools:layout="@layout/fragment_add_users_face">
+        <argument
+            android:name="currentUser"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="de.muenchen.appcenter.nimux.view.main.help.HelpFragment"
+        android:label="@string/help_action_title"
+        tools:layout="@layout/fragment_help">
+        <action
+            android:id="@+id/action_helpFragment_to_helpDetailFragment"
+            app:destination="@id/helpDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ausgebenConfirmFragment"
+        android:name="de.muenchen.appcenter.nimux.view.main.specialorder.DonationConfirmFragment"
+        android:label="@string/ausgeben_confirm_nav_label"
+        tools:layout="@layout/fragment_ausgeben_confirm">
+        <argument
+            android:name="donateItem"
+            app:argType="de.muenchen.appcenter.nimux.model.DonateItem" />
+        <argument
+            android:name="user"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+        <argument
+            android:name="faceDetected"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_ausgebenConfirmFragment_to_nav_home_auto"
+            app:destination="@id/nav_home_auto" />
+        <action
+            android:id="@+id/action_ausgebenConfirmFragment_to_nav_home_manual"
+            app:destination="@id/nav_home_manual" />
+    </fragment>
+    <fragment
+        android:id="@+id/userPersonalHistoryFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.users.UserPersonalHistoryFragment"
+        android:label="@string/personal_history_nav_title"
+        tools:layout="@layout/fragment_user_personal_history">
+        <argument
+            android:name="currentUser"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpDetailFragment"
+        android:name="de.muenchen.appcenter.nimux.view.main.help.HelpDetailFragment"
+        android:label="@string/help_action_title"
+        tools:layout="@layout/fragment_help_detail">
+        <argument
+            android:name="helpItem"
+            app:argType="de.muenchen.appcenter.nimux.model.HelpItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalStatsSelectFragment"
+        android:name="de.muenchen.appcenter.nimux.view.main.statistics.PersonalStatsSelectFragment"
+        android:label="@string/select_user"
+        tools:layout="@layout/fragment_personal_stats_select">
+        <action
+            android:id="@+id/action_personalStatsSelectFragment_to_personalStatFragment"
+            app:destination="@id/personalStatFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalStatFragment"
+        android:name="de.muenchen.appcenter.nimux.view.main.statistics.PersonalStatFragment"
+        android:label="fragment_personal_stat">
+        <argument
+            android:name="selectedUser"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/detectionConnectionProtectionFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.users.DetectionConnectionProtectionFragment"
+        android:label="@string/enter_password"></fragment>
+    <fragment
+        android:id="@+id/changeMainPwFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.ChangeMainPwFragment"
+        android:label="@string/change_main_pw_fragment_title"
+        tools:layout="@layout/fragment_change_main_pw" />
+    <fragment
+        android:id="@+id/nav_suggest_users"
+        android:name="de.muenchen.appcenter.nimux.view.manage.suggestUser.SuggestUserFragment"
+        android:label="@string/suggest_users_title"
+        tools:layout="@layout/fragment_suggest_user" />
+    <fragment
+        android:id="@+id/suggestedUsersFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.suggestUser.SuggestedUsersFragment"
+        android:label="@string/suggested_users_title"
+        tools:layout="@layout/fragment_suggested_users">
+        <action
+            android:id="@+id/action_suggestedUsersFragment_to_suggestedUserManageFragment"
+            app:destination="@id/suggestedUserManageFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/suggestedUserManageFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.suggestUser.SuggestedUserManageFragment"
+        android:label="@string/manage_suggested_user_title"
+        tools:layout="@layout/fragment_suggested_user_manage">
+        <argument
+            android:name="suggestedUser"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/suggUserPasswordFragment"
+        android:name="de.muenchen.appcenter.nimux.view.manage.suggestUser.SuggUserPasswordFragment"
+        android:label="@string/manage_suggested_user_title">
+        <action
+            android:id="@+id/action_suggUserPasswordFragment_to_suggestedUsersFragment"
+            app:destination="@id/suggestedUsersFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/noAccessFragment"
+        android:name="de.muenchen.appcenter.nimux.view.NoAccessFragment"
+        android:label="@string/no_access_fragment_title"
+        tools:layout="@layout/fragment_no_access" />
+    <fragment
+        android:id="@+id/nav_user_store"
+        android:name="de.muenchen.appcenter.nimux.view.main.store.StoreFragment"
+        android:label="@string/store_title"
+        tools:layout="@layout/fragment_store">
+        <action
+            android:id="@+id/action_navStore_to_storeUserFragment"
+            app:destination="@id/storeUserFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeUserFragment"
+        android:name="de.muenchen.appcenter.nimux.view.main.store.StoreUserFragment"
+        android:label="@string/select_user_to_customize_title"
+        tools:layout="@layout/fragment_store_user">
+        <action
+            android:id="@+id/action_storeUserFragment_to_editUserCustomizationFragment"
+            app:destination="@id/editUserCustomizationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/editUserCustomizationFragment"
+        android:name="de.muenchen.appcenter.nimux.view.main.store.EditUserCustomizationFragment"
+        android:label="@string/edit_customization_title"
+        tools:layout="@layout/fragment_edit_user_customization">
+        <argument
+            android:name="user"
+            app:argType="de.muenchen.appcenter.nimux.model.User" />
+    </fragment>
+</navigation>

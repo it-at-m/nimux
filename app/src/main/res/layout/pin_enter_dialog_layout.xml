@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/brute_force_warn"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:visibility="gone"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pin_enter_dialog_edittext"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:hint="@string/confirm_pin"
+        app:counterEnabled="true"
+        app:counterMaxLength="4"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

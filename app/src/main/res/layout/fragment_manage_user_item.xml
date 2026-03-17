@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="de.muenchen.appcenter.nimux.viewmodel.manage.users.ManageUserItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.showProgressBar ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_layout"
+            app:layout_constraintTop_toTopOf="@id/top_layout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/default_layout_padding">
+
+                <TextView
+                    android:id="@+id/manage_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.userName}"
+                    android:textAppearance="?textAppearanceHeadline3"
+                    android:textColor="?colorOnBackground"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/manage_user_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_seperation_margin"
+                    android:text="@string/credit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/manage_user_name" />
+
+                <TextView
+                    android:id="@+id/manage_user_topay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@{viewModel.userPay}"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Headline4"
+                    android:textColor="?colorOnBackground"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/manage_user_amount"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/select_amount_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_seperation_margin"
+                    android:text="@string/select_credit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/manage_user_topay" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/money_picker_chip_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_margin"
+                    android:checkedButton="@={viewModel.checkedButton}"
+                    android:onCheckedChanged="@{() -> viewModel.checkedChanged()}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/select_amount_title"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_exact"
+                        style="@style/Widget.MyTheme.ChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.user.toPay &lt; 0.0 ? viewModel.posNegCredit : viewModel.zeroPayConst }"
+                        android:visibility="@{viewModel.user.toPay >= 0 ? View.GONE : View.VISIBLE}" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_5"
+                        style="@style/Widget.MyTheme.ChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5€"
+                        tools:ignore="HardcodedText" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_10"
+                        style="@style/Widget.MyTheme.ChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10€"
+                        tools:ignore="HardcodedText" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_20"
+                        style="@style/Widget.MyTheme.ChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20€"
+                        tools:ignore="HardcodedText" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_other"
+                        style="@style/Widget.MyTheme.ChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/other" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/custom_amount_edit_text_layout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_margin"
+                    android:visibility="gone"
+                    app:endIconDrawable="@drawable/ic_round_euro_symbol_24"
+                    app:endIconMode="custom"
+                    app:endIconTint="?colorOnSurface"
+                    app:errorEnabled="true"
+                    app:helperText="@string/custom_amount_helper"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/money_picker_chip_group">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/custom_amount_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal|textNoSuggestions"
+                        android:maxLength="6"
+                        android:singleLine="true"
+                        android:text="@={viewModel.customAmount}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/default_layout_padding"
+            android:paddingTop="@dimen/button_layout_padding"
+            android:paddingEnd="@dimen/default_layout_padding"
+            android:paddingBottom="@dimen/button_layout_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/manage_user_pay_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:onClick="@{() -> viewModel.payClickCheck()}"
+                android:text="@string/add_credit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/manage_user_cancel_button"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/default_margin"
+                android:onClick="@{() ->viewModel.cancel()}"
+                android:text="@string/cancel"
+                app:layout_constraintBaseline_toBaselineOf="@id/manage_user_pay_button"
+                app:layout_constraintEnd_toStartOf="@id/manage_user_pay_button" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
