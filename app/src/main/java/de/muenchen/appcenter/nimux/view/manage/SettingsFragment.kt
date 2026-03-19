@@ -61,7 +61,7 @@ class SettingsFragment : Fragment() {
         binding.settingsAccountLoggedIn.text =
             "Eingeloggt als " + userSessionManager.getUserEMail() + " mit Rolle " + userSessionManager.getRole() + " und Daten aus Tenant: " + userSessionManager.getTenantId()
         setClickListeners()
-
+        getSavedData()
     }
 
     private fun setClickListeners() {
@@ -110,6 +110,26 @@ class SettingsFragment : Fragment() {
             (activity as AppCompatActivity)
                 .supportActionBar
                 ?.setDisplayHomeAsUpEnabled(false)
+        }
+    }
+
+    private fun getSavedData() {
+        binding.settingsStandbySwitch.isChecked =
+            sharedPrefs.getBoolean(standbyBoolPrefKey, false)
+        binding.settingsScanFaceSwitch.isChecked =
+            sharedPrefs.getBoolean(faceRecognitionPrefKey, false)
+
+        binding.settingsStandbySwitch.setOnCheckedChangeListener { _, b ->
+            with(sharedPrefs.edit()) {
+                putBoolean(standbyBoolPrefKey, b)
+                apply()
+            }
+        }
+        binding.settingsScanFaceSwitch.setOnCheckedChangeListener { _, b ->
+            with(sharedPrefs.edit()) {
+                putBoolean(faceRecognitionPrefKey, b)
+                apply()
+            }
         }
     }
 }
