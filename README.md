@@ -18,7 +18,7 @@
 NIMux is a smart native Android app that centrally manages supplies, inventory, materials, and additional resources.  
 Keep track of all your stock, work equipment, and resources at any time – ideal for emergency supplies, warehouse management, or everyday operations.
 
-The project main purpose is to provide an easy way to demonstrate the capabilites of an Android app in combination with Firebase services.
+The project main purpose is to provide an easy way to demonstrate the capabilities of an Android app in combination with Firebase services.
 
 ## Screenshots
 

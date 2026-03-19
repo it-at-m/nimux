@@ -12,13 +12,17 @@ plugins {
 android {
     compileSdkVersion 36
     namespace = "com.example.demo.nimux"
-
+    ndkVersion "26.1.10909125"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
     defaultConfig {
         applicationId "com.example.demo.nimux"
         minSdkVersion 31
         targetSdkVersion 36
-        versionCode 300
-        versionName "3.0.0"
+        versionCode 301
+        versionName "3.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,13 +37,6 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
-    }
-
-    android {
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_21
-            targetCompatibility JavaVersion.VERSION_21
-        }
     }
 
     kotlin {
@@ -69,20 +66,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
-    implementation 'com.google.android.gms:play-services-vision-image-label:18.1.1'
-
     //Firebase
     implementation 'com.google.firebase:firebase-firestore-ktx:25.1.4'
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.1'
     implementation 'com.google.firebase:firebase-auth-ktx:23.2.1'
 
     implementation 'com.google.mlkit:face-detection:16.1.7'
-    implementation 'com.google.firebase:firebase-ml-modeldownloader-ktx:25.0.1'
 
     ///TensorFlow
-    implementation "org.tensorflow:tensorflow-lite:2.15.0"
-    implementation "org.tensorflow:tensorflow-lite-task-vision:0.4.4"
-    implementation "org.tensorflow:tensorflow-lite-gpu:2.15.0"
+    implementation "org.tensorflow:tensorflow-lite:2.16.1"
 
 
     // Kotlin Coroutines
