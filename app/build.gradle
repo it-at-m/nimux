@@ -12,13 +12,17 @@ plugins {
 android {
     compileSdkVersion 36
     namespace = "com.example.demo.nimux"
-
+    ndkVersion "26.1.10909125"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
     defaultConfig {
         applicationId "com.example.demo.nimux"
         minSdkVersion 31
         targetSdkVersion 36
-        versionCode 300
-        versionName "3.0.0"
+        versionCode 301
+        versionName "3.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,14 +37,6 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
-    }
-
-    android {
-        ndkVersion "26.1.10909125"
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_21
-            targetCompatibility JavaVersion.VERSION_21
-        }
     }
 
     kotlin {
