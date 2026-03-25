@@ -313,23 +313,28 @@ class MainActivity : AppCompatActivity() {
         //User is logged in
         if (currentUser != null && tenantId != null) {
             lifecycleScope.launch(Dispatchers.IO) {
-                val currentlyAssignedTenant = sessionManager.syncSessionInfoWithFirebase(currentUser.uid)
+                val currentlyAssignedTenant =
+                    sessionManager.syncSessionInfoWithFirebase(currentUser.uid)
                 Timber.d("Currently assigned tenant in firebase $currentlyAssignedTenant")
                 // tenant has been switched until last login; logout user and force new login
                 if (currentlyAssignedTenant != sessionManager.getTenantId()) {
                     sessionManager.clearSession()
                     FirebaseAuth.getInstance().signOut()
-                    val intent = Intent(applicationContext, MainActivity::class.java)
-                    startActivity(intent)
-                }
-            }
-            Timber.Forest.d("User with uid ${currentUser.uid} and email ${currentUser.email} belongs to tenant: $tenantId")
-            buildUI()
-            lifecycleScope.launch(Dispatchers.IO) {
-                // user is logged in but has no access or admin role set
-                if (!sessionManager.hasAdminRole() && !sessionManager.hasAccessRole()) {
                     lifecycleScope.launch(Dispatchers.Main) {
-                        navController.navigate(R.id.noAccessFragment)
+                        val intent = Intent(this@MainActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    return@launch
+                }
+                lifecycleScope.launch(Dispatchers.Main) {
+                    Timber.d("User with uid ${currentUser.uid} and email ${currentUser.email} belongs to tenant: $tenantId")
+                    buildUI()
+                    // user is logged in but has no access or admin role set
+                    if (!sessionManager.hasAdminRole() && !sessionManager.hasAccessRole()) {
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            navController.navigate(R.id.noAccessFragment)
+                        }
                     }
                 }
             }
