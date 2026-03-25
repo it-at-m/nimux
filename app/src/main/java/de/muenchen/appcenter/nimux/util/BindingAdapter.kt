@@ -58,7 +58,7 @@ class ChipGroupBindingAdapter {
 
 object TextViewBindingAdapter {
     @JvmStatic
-    @BindingAdapter("app:isBold")
+    @BindingAdapter("isBold")
     fun setBold(view: TextView, isBold: Boolean?) {
         if (isBold != null && isBold) {
             view.typeface = Typeface.DEFAULT_BOLD
@@ -68,7 +68,7 @@ object TextViewBindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("app:premiumColor")
+    @BindingAdapter("premiumColor")
     fun setColor(view: TextView, nameColors: NameColors?) {
         val textColor = TypedValue()
         val theme = view.context.theme
