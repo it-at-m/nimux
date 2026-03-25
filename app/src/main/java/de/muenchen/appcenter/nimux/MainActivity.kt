@@ -91,30 +91,6 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-
-
-        // after successful login the tenantId the user belongs to should be available
-        val tenantId = sessionManager.getTenantId()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        //User is logged in
-        if (currentUser != null && tenantId != null) {
-            Timber.Forest.d("User with uid ${currentUser.uid} and email ${currentUser.email} belongs to tenant: $tenantId")
-            buildUI()
-            lifecycleScope.launch(Dispatchers.IO) {
-                // user is logged in but has no access or admin role set
-                if (!sessionManager.hasAdminRole() && !sessionManager.hasAccessRole()) {
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        navController.navigate(R.id.noAccessFragment)
-                    }
-                }
-            }
-        } else {
-            Timber.Forest.d("user not logged in")
-            //user not logged in, show custom login ui
-            buildLogIn()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -329,6 +305,39 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        // after successful login the tenantId the user belongs to should be available
+        val tenantId = sessionManager.getTenantId()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        //User is logged in
+        if (currentUser != null && tenantId != null) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val currentlyAssignedTenant = sessionManager.syncSessionInfoWithFirebase(currentUser.uid)
+                Timber.d("Currently assigned tenant in firebase $currentlyAssignedTenant")
+                // tenant has been switched until last login; logout user and force new login
+                if (currentlyAssignedTenant != sessionManager.getTenantId()) {
+                    sessionManager.clearSession()
+                    FirebaseAuth.getInstance().signOut()
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            Timber.Forest.d("User with uid ${currentUser.uid} and email ${currentUser.email} belongs to tenant: $tenantId")
+            buildUI()
+            lifecycleScope.launch(Dispatchers.IO) {
+                // user is logged in but has no access or admin role set
+                if (!sessionManager.hasAdminRole() && !sessionManager.hasAccessRole()) {
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        navController.navigate(R.id.noAccessFragment)
+                    }
+                }
+            }
+        } else {
+            Timber.Forest.d("user not logged in")
+            //user not logged in, show custom login ui
+            buildLogIn()
+        }
         timerRestart()
 
     }
