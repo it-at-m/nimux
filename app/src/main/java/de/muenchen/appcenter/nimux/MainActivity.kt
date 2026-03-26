@@ -333,16 +333,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun validateTenant(uid: String) {
         lifecycleScope.launch {
-            val currentlyAssignedTenant = withContext(Dispatchers.IO) {
-                sessionManager.syncSessionInfoWithFirebase(uid)
-            }
+            try {
+                val currentlyAssignedTenant = withContext(Dispatchers.IO) {
+                    sessionManager.syncSessionInfoWithFirebase(uid)
+                }.takeUnless { it == "null" }
 
-            Timber.d("Currently assigned tenant in firebase $currentlyAssignedTenant")
+                val localTenant = sessionManager.getTenantId()
 
-            if (currentlyAssignedTenant != sessionManager.getTenantId()) {
+                Timber.d("Firebase tenant: $currentlyAssignedTenant, Local tenant: $localTenant")
+
+                if (currentlyAssignedTenant != localTenant) {
+                    forceLogout()
+                } else {
+                    updateUIState(true)
+                }
+
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to validate tenant")
                 forceLogout()
-            } else {
-                updateUIState(true)
             }
         }
     }
