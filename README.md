@@ -87,7 +87,7 @@ To use the app on your own you have to set up a firebase project.
 - Smart extras: analytics
 
 **Adding new organizational unit**
-If you want to add another departement in your own firebase instance create a new tenant and map the corresponding user to the tenant and id as described above.
+If you want to add another departement in your own firebase instance create a new tenant and map the corresponding user to the tenant and id as described above. Inside the tenant document create a new collection called "ManagePWCollection" and inside this collection a new document "ManagePWDoc". The "ManagePWDoc" should contain a field "pw" as type string. This field is the master password to access admins functionality inside the app from an account with the role "access".
 
 ## Contributing
 
