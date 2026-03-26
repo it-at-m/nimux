@@ -8,6 +8,7 @@ import androidx.security.crypto.MasterKey
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.ktx.firestore
 
 class UserSessionManager(context: Context) {
 
@@ -33,6 +34,11 @@ class UserSessionManager(context: Context) {
                 .putString("role", role)
                 .putString("user", email)
         }
+    }
+
+    suspend fun syncSessionInfoWithFirebase(uid: String): String {
+        val doc = com.google.firebase.ktx.Firebase.firestore.collection("userTenants").document(uid).get().await()
+        return doc.getString("tenantId").toString()
     }
 
     fun getTenantRef(): DocumentReference? {

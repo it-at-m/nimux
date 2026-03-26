@@ -146,9 +146,12 @@ class HomeFragment : Fragment(), UserAdapter.UserItemClickListener {
         reenterTransition =
             Fade().setDuration(resources.getInteger(R.integer.motion_medium).toLong())
         val action = HomeFragmentDirections.actionNavHomeToHomeProductFragment(user, false)
-        findNavController().navigate(action, extras)
-
+        // prevent click on two items at the same time which leads to navigation problem
+        if (findNavController().currentDestination?.id == R.id.nav_home_manual) {
+            findNavController().navigate(action, extras)
+        }
     }
+
 
     override fun onStart() {
         super.onStart()

@@ -60,14 +60,14 @@ import kotlin.math.round
 const val collection_users = "users"
 const val collection_suggest_users = "suggest_users"
 const val collection_products = "products"
-val collection_stats = "stats"
-val collection_stats_total = "items"
-val collection_donate = "donateItem"
-val collection_userLogs = "userLogs"
-val collection_productLogs = "productLogs"
-val collection_help = "helpCollection"
-val collection_loginlogoutlogs = "LoginLogoutLogs"
-val collection_passwordManage = "ManagePWCollection"
+const val collection_stats = "stats"
+const val collection_stats_total = "items"
+const val collection_donate = "donateItem"
+const val collection_userLogs = "userLogs"
+const val collection_productLogs = "productLogs"
+const val collection_help = "helpCollection"
+const val collection_loginlogoutlogs = "LoginLogoutLogs"
+const val collection_passwordManage = "ManagePWCollection"
 
 const val coll_stats_main_doc = "document"
 
@@ -141,7 +141,7 @@ fun showKeyboard(activity: Activity) {
     }
 }
 
-
+// TODO: evtl. ersetzen?
 fun Double.round(decimals: Int): Double {
     var multiplier = 1.0
     repeat(decimals) { multiplier *= 10 }
