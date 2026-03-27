@@ -58,8 +58,9 @@ class ManageProductsFragment : Fragment(), ManageProductsAdapter.OnItemClickList
         }
 
         binding.productListRv.apply {
-            setHasFixedSize(true)
+            setHasFixedSize(false)
             layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = null
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 var fabVis = binding.addProductFab.isVisible
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -206,7 +207,7 @@ class ManageProductsAdapter internal constructor(options: FirestoreRecyclerOptio
                 .setImageResource(getProductIcon(productIcon))
 
             view.findViewById<MaterialCardView>(R.id.manage_product_list_card).setOnClickListener {
-                val position = layoutPosition
+                val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onItemClick(snapshots.getSnapshot(position), position)
                 }
