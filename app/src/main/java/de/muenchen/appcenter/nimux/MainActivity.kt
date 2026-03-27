@@ -40,6 +40,7 @@ import de.muenchen.appcenter.nimux.util.hideKeyboard
 import de.muenchen.appcenter.nimux.util.standbyBoolPrefKey
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.sqrt
@@ -55,13 +56,47 @@ class MainActivity : AppCompatActivity() {
     private lateinit var timer: CountDownTimer
     val countDownTime = 45000
     private lateinit var navController: NavController
+    private var isLoggedInState: Boolean? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         prepareEnterTransition()
         super.onCreate(savedInstanceState)
-        goFullScreen()
+
         setContentView(R.layout.activity_main)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        auth = FirebaseAuth.getInstance()
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+
+        timer = object : CountDownTimer(countDownTime.toLong(), 1000) {
+            override fun onTick(p0: Long) {
+                Timber.d(p0.toString())
+                if (p0 in 9001..9999) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.standby_ten_seconds_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFinish() {
+                startActivity(Intent(this@MainActivity, InActivity::class.java))
+            }
+        }
+
+        val currentUser = auth.currentUser
+        val tenantId = sessionManager.getTenantId()
+        updateUIState(currentUser != null && tenantId != null)
+
+        goFullScreen()
+
         findViewById<View>(R.id.main_act_content).setOnApplyWindowInsetsListener { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsets.Type.systemBars())
             view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -69,28 +104,6 @@ class MainActivity : AppCompatActivity() {
             }
             windowInsets
         }
-
-        timer = object : CountDownTimer((countDownTime).toLong(), 1000) {
-            override fun onTick(p0: Long) {
-                Timber.Forest.d(p0.toString())
-                if (p0 in 9001..9999)
-                    Toast.makeText(
-                        this@MainActivity,
-                        getString(R.string.standby_ten_seconds_toast),
-                        Toast.LENGTH_SHORT
-                    ).show()
-            }
-
-            override fun onFinish() {
-                val intent = Intent(this@MainActivity, InActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -305,41 +318,94 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // after successful login the tenantId the user belongs to should be available
-        val tenantId = sessionManager.getTenantId()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        //User is logged in
-        if (currentUser != null && tenantId != null) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                val currentlyAssignedTenant = sessionManager.syncSessionInfoWithFirebase(currentUser.uid)
-                Timber.d("Currently assigned tenant in firebase $currentlyAssignedTenant")
-                // tenant has been switched until last login; logout user and force new login
-                if (currentlyAssignedTenant != sessionManager.getTenantId()) {
-                    sessionManager.clearSession()
-                    FirebaseAuth.getInstance().signOut()
-                    val intent = Intent(applicationContext, MainActivity::class.java)
-                    startActivity(intent)
-                }
-            }
-            Timber.Forest.d("User with uid ${currentUser.uid} and email ${currentUser.email} belongs to tenant: $tenantId")
-            buildUI()
-            lifecycleScope.launch(Dispatchers.IO) {
-                // user is logged in but has no access or admin role set
-                if (!sessionManager.hasAdminRole() && !sessionManager.hasAccessRole()) {
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        navController.navigate(R.id.noAccessFragment)
-                    }
-                }
-            }
-        } else {
-            Timber.Forest.d("user not logged in")
-            //user not logged in, show custom login ui
-            buildLogIn()
-        }
-        timerRestart()
 
+        val currentUser = auth.currentUser
+        val tenantId = sessionManager.getTenantId()
+
+        if (currentUser != null && tenantId != null) {
+            validateTenant(currentUser.uid)
+        } else {
+            updateUIState(false)
+        }
+
+        timerRestart()
+    }
+
+    private fun validateTenant(uid: String) {
+        lifecycleScope.launch {
+            try {
+                val currentlyAssignedTenant = withContext(Dispatchers.IO) {
+                    sessionManager.syncSessionInfoWithFirebase(uid)
+                }.takeUnless { it == "null" }
+
+                val localTenant = sessionManager.getTenantId()
+
+                Timber.d("Firebase tenant: $currentlyAssignedTenant, Local tenant: $localTenant")
+
+                if (currentlyAssignedTenant != localTenant) {
+                    forceLogout()
+                } else {
+                    updateUIState(true)
+                }
+
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to validate tenant")
+                forceLogout()
+            }
+        }
+    }
+
+    private fun updateUIState(isLoggedIn: Boolean) {
+        if (isLoggedInState == isLoggedIn) return
+
+        isLoggedInState = isLoggedIn
+
+        if (isLoggedIn) {
+            Timber.d("User logged in → build UI")
+            buildUIOnce()
+        } else {
+            Timber.d("User not logged in → show login")
+            buildLoginOnce()
+        }
+    }
+
+    private var uiBuilt = false
+    private var loginBuilt = false
+
+    private fun buildUIOnce() {
+        if (uiBuilt) return
+        uiBuilt = true
+        loginBuilt = false
+
+        buildUI()
+
+        val currentUser = auth.currentUser
+        val tenantId = sessionManager.getTenantId()
+
+        Timber.d("User ${currentUser?.uid} (${currentUser?.email}) tenant: $tenantId")
+
+        if (!sessionManager.hasAdminRole() && !sessionManager.hasAccessRole()) {
+            navController.navigate(R.id.noAccessFragment)
+        }
+    }
+
+    private fun buildLoginOnce() {
+        if (loginBuilt) return
+        loginBuilt = true
+        uiBuilt = false
+        buildLogIn()
+    }
+
+    private fun forceLogout() {
+        sessionManager.clearSession()
+        FirebaseAuth.getInstance().signOut()
+        isLoggedInState = null
+        uiBuilt = false
+        loginBuilt = false
+        updateUIState(false)
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun timerRestart() {
