@@ -74,6 +74,7 @@
                     android:hint="@string/password"
                     android:importantForAutofill="no"
                     app:errorEnabled="true"
+                    app:endIconMode="password_toggle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/login_fragment_email_input">
 
