@@ -1,22 +1,10 @@
-<h1>
-  <a href="#">
-    <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" alt="Logo" height="100">
-  </a>
-  <br>
-  NIMux
-</h1>
+<img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" alt="Logo" height="100">
 
-![Platform](https://img.shields.io/badge/platform-Android-green)
-![Language](https://img.shields.io/badge/language-Kotlin-blue)
-![Backend](https://img.shields.io/badge/backend-Firebase-yellow)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+# NIMux - Everything under control, smartly organized
 
-[![Made with love by it@M][made-with-love-shield]][itm-opensource]
+[![Made with love by it@M][made-with-love-shield]][itm-opensource] [![License][license-shield]][license-url] ![Android][android-shield] [![Language][language-shield]][language-url] [![Backend][backend-shield]][backend-url] [![PRs][prs-shield]][prs-url] [![Stars][stars-shield]][stars-url] [![Issues][issues-shield]][issues-url]
 
-**NIMux – Everything under control, smartly organized.**
-
-NIMux is a smart native Android app that centrally manages supplies, inventory, materials, and additional resources.  
-Keep track of all your stock, work equipment, and resources at any time – ideal for emergency supplies, warehouse management, or everyday operations.
+**NIMux** is a smart native Android app that centrally manages supplies, inventory, materials, and additional resources. Keep track of all your stock, work equipment, and resources at any time – ideal for emergency supplies, warehouse management, or everyday operations.
 
 The project main purpose is to provide an easy way to demonstrate the capabilities of an Android app in combination with Firebase services.
 
@@ -67,13 +55,10 @@ All libraries are licensed under the Apache License 2.0 unless otherwise noted.
 9. Inside the firebase console switch to firestore and select the tab "Rules". Copy the provided rules from the file firestore.rules.
 10. Download your google-services.json file from the Firebase console and put it inside the /app directory.
 
-
 ## Build the app
+
 1. If you like, change the App ID in `build.gradle.kts` to your own.
 2. Open the project in your preferred IDE, sync Gradle, and build.
-
-
-
 
 ## Documentation
 
@@ -119,5 +104,17 @@ it@M - opensource@muenchen.de
 <!-- project shields / links -->
 
 [made-with-love-shield]: https://img.shields.io/badge/made%20with%20%E2%9D%A4%20by-it%40M-yellow?style=for-the-badge
-
 [itm-opensource]: https://opensource.muenchen.de/
+[license-shield]: https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge
+[license-url]: LICENSE
+[android-shield]: https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white
+[language-shield]: https://img.shields.io/badge/Flutter-02569B?logo=flutter&logoColor=white&style=for-the-badge
+[language-url]: https://flutter.dev/
+[backend-shield]: https://img.shields.io/badge/State_Management-Bloc-blue.svg?style=for-the-badge
+[backend-url]: https://bloclibrary.dev/
+[prs-shield]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge
+[prs-url]: https://github.com/it-at-m/nimux/pulls
+[stars-shield]: https://img.shields.io/github/stars/it-at-m/nimux.svg?style=for-the-badge
+[stars-url]: https://github.com/it-at-m/nimux
+[issues-shield]: https://img.shields.io/github/issues/it-at-m/nimux.svg?style=for-the-badge
+[issues-url]: https://github.com/it-at-m/nimux/issues
