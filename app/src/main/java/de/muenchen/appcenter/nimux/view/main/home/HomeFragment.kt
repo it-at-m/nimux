@@ -207,7 +207,7 @@ class UserAdapter internal constructor(options: FirestoreRecyclerOptions<User>) 
                     NameColors.BLUE -> theme.resolveAttribute(R.attr.colorCapri, textColor, true)
                     NameColors.CYAN -> theme.resolveAttribute(R.attr.colorSeagreen, textColor, true)
                     else -> theme.resolveAttribute(
-                        R.attr.colorOnBackground,
+                        com.google.android.material.R.attr.colorOnBackground,
                         textColor,
                         true
                     )
