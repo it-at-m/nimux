@@ -14,6 +14,10 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.databinding.DataBindingUtil
 import de.muenchen.appcenter.nimux.InActivity.Companion.AUTO_HIDE
 import de.muenchen.appcenter.nimux.InActivity.Companion.AUTO_HIDE_DELAY_MILLIS
 import de.muenchen.appcenter.nimux.databinding.ActivityInBinding
@@ -35,19 +39,13 @@ class InActivity : AppCompatActivity() {
     private val hideHandler = Handler()
     private lateinit var cameraExecutor: ExecutorService
 
-    @SuppressLint("InlinedApi")
     private val hidePart2Runnable = Runnable {
-        // Note that some of these constants are new as of API 16 (Jelly Bean)
-        // and API 19 (KitKat). It is safe to use them, as they are inlined
-        // at compile-time and do nothing on earlier devices.
-        fullscreenContent.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LOW_PROFILE or
-                    View.SYSTEM_UI_FLAG_FULLSCREEN or
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        val windowInsetsController = WindowCompat.getInsetsController(window, fullscreenContent)
 
+        windowInsetsController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
     }
     private val showPart2Runnable = Runnable {
         // Delayed display of UI elements
@@ -67,13 +65,10 @@ class InActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_in)
+
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-
-        binding = ActivityInBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         isFullscreen = true
 
         if (resources.configuration.smallestScreenWidthDp >= 600) {
