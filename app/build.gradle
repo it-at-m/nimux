@@ -111,7 +111,7 @@ dependencies {
     ksp "androidx.room:room-compiler:2.8.4"
 
     // worker implementation to check paypal invoices in background
-    implementation "androidx.work:work-runtime-ktx:2.11.1"
+    implementation "androidx.work:work-runtime-ktx:2.11.2"
 
     implementation 'com.google.guava:guava:32.1.3-android'
 
