@@ -97,7 +97,7 @@ dependencies {
     implementation "androidx.camera:camera-view:1.6.0"
 
     //MPAndroid Charts to have graphs/charts for statisics in StatisticsFragment
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:3.1.0'
 
     // Retrofit for REST API calls to PayPal API
     implementation "com.squareup.retrofit2:retrofit:2.11.0"
