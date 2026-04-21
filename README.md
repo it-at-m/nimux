@@ -111,8 +111,8 @@ AppCenter - apps@muenchen.de
 [android-shield]: https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white
 [language-shield]: https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white&style=for-the-badge
 [language-url]: https://kotlinlang.org/
-[backend-shield]: https://img.shields.io/badge/State_Management-Bloc-blue.svg?style=for-the-badge
-[backend-url]: https://bloclibrary.dev/
+[backend-shield]: https://img.shields.io/badge/Backend-Firebase-2C384A.svg?style=for-the-badge
+[backend-url]: https://firebase.google.com/
 [prs-shield]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge
 [prs-url]: https://github.com/it-at-m/nimux/pulls
 [stars-shield]: https://img.shields.io/github/stars/it-at-m/nimux.svg?style=for-the-badge
