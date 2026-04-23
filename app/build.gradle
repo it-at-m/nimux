@@ -72,7 +72,7 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-firestore-ktx:25.1.4'
-    implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
+    implementation 'com.firebaseui:firebase-ui-firestore:9.1.1'
     implementation 'com.google.firebase:firebase-auth-ktx:23.2.1'
 
     implementation 'com.google.mlkit:face-detection:16.1.7'
