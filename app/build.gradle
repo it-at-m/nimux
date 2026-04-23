@@ -63,7 +63,7 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.1'
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.9.8'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.9.7'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.9.8'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0'
 
     testImplementation 'junit:junit:4.13.2'
