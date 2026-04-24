@@ -10,6 +10,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+gradle/gradle-daemon-jvm.properties
 /.idea/deploymentTargetSelector.xml
 # Keystore files (WICHTIG: niemals committen!)
 *.jks

@@ -58,8 +58,9 @@ class ManageProductsFragment : Fragment(), ManageProductsAdapter.OnItemClickList
         }
 
         binding.productListRv.apply {
-            setHasFixedSize(true)
+            setHasFixedSize(false)
             layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = null
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 var fabVis = binding.addProductFab.isVisible
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -178,7 +179,7 @@ class ManageProductsAdapter internal constructor(options: FirestoreRecyclerOptio
                 text = currentAmount.toString()
                 if (currentAmount <= 0) {
                     val a = TypedValue()
-                    context.theme.resolveAttribute(R.attr.colorError, a, true)
+                    context.theme.resolveAttribute(androidx.appcompat.R.attr.colorError, a, true)
                     if (a.type >= TypedValue.TYPE_FIRST_COLOR_INT && a.type <= TypedValue.TYPE_LAST_COLOR_INT) {
                         setTextColor(a.data)
                         view.findViewById<TextView>(R.id.list_manage_product_amount_text)
@@ -186,7 +187,7 @@ class ManageProductsAdapter internal constructor(options: FirestoreRecyclerOptio
                     }
                 } else {
                     val a = TypedValue()
-                    context.theme.resolveAttribute(R.attr.colorOnBackground, a, true)
+                    context.theme.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, a, true)
                     if (a.type >= TypedValue.TYPE_FIRST_COLOR_INT && a.type <= TypedValue.TYPE_LAST_COLOR_INT) {
                         setTextColor(a.data)
                         view.findViewById<TextView>(R.id.list_manage_product_amount_text)
@@ -206,7 +207,7 @@ class ManageProductsAdapter internal constructor(options: FirestoreRecyclerOptio
                 .setImageResource(getProductIcon(productIcon))
 
             view.findViewById<MaterialCardView>(R.id.manage_product_list_card).setOnClickListener {
-                val position = layoutPosition
+                val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onItemClick(snapshots.getSnapshot(position), position)
                 }

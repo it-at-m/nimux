@@ -74,7 +74,7 @@ object TextViewBindingAdapter {
         val theme = view.context.theme
         when (nameColors) {
             NameColors.DEFAULT -> {
-                theme.resolveAttribute(R.attr.colorOnBackground, textColor, true)
+                theme.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, textColor, true)
             }
 
             NameColors.PURPLE -> {
@@ -98,7 +98,7 @@ object TextViewBindingAdapter {
             }
 
             else -> {
-                theme.resolveAttribute(R.attr.colorOnBackground, textColor, true)
+                theme.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, textColor, true)
             }
         }
         view.setTextColor(textColor.data)
