@@ -94,7 +94,7 @@ dependencies {
     // CameraX Lifecycle Library
     implementation "androidx.camera:camera-lifecycle:1.6.1"
     // CameraX View class
-    implementation "androidx.camera:camera-view:1.6.0"
+    implementation "androidx.camera:camera-view:1.6.1"
 
     //MPAndroid Charts to have graphs/charts for statisics in StatisticsFragment
     implementation 'com.github.PhilJay:MPAndroidChart:3.1.0'
