@@ -219,8 +219,6 @@ class UserAdapter internal constructor(options: FirestoreRecyclerOptions<User>) 
                 binding.userEmojiIcon.visibility = View.VISIBLE
                 binding.userEmojiIcon.text = user.emojiIcon
             }
-//            if (user.boldEnabled == true) binding.homeUserItemName.typeface = Typeface.DEFAULT_BOLD
-//            else binding.homeUserItemName.typeface = Typeface.DEFAULT
         }
     }
 

@@ -114,6 +114,8 @@ const val checkInvoicesPrefKey = "PREFERENCE_CHECK_INVOICES"
 const val userPrefsScanProductsPreferenceKey = "scan_products_pref"
 const val userPrefsFaceReplacePinPreferenceKey = "facial_scan_replaces_pin_pref"
 
+const val systemColorPrefKey = "SYSTEM_COLOR_PREF_KEY"
+
 fun hideKeyboard(activity: Activity) {
     val inputMethodManager =
         activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

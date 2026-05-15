@@ -157,6 +157,14 @@
                             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:textColor="?colorError" />
 
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/face_feature_switch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="@{viewModel.faceFeatureNeeded}"
+                            android:onClick="@{() -> viewModel.switchFaceFeatureNeeded()}"
+                            android:text="@string/face_feature" />
+
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>

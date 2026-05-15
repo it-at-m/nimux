@@ -83,6 +83,13 @@ class SignInFragment : Fragment() {
             }
         }
 
+        binding.privacyPolicyButton.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                "https://it-at-m.github.io/nimux/privacy.html".toUri()
+            )
+            startActivity(intent)
+        }
         return binding.root
     }
 
@@ -97,39 +104,6 @@ class SignInFragment : Fragment() {
                 requireActivity().finish()
                 startActivity(intent)
             }
-        }
-        viewModel.showPrivacyDialog.observe(viewLifecycleOwner) { show ->
-
-            if (show) {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Datenschutzhinweis")
-                    .setMessage(
-                        "Zur Anmeldung wird Firebase Authentication verwendet. " +
-                                "Dabei können Ihre E-Mail-Adresse sowie technische Informationen " +
-                                "wie IP-Adresse und Zeitpunkte von Anmeldeversuchen verarbeitet werden.\n\n" +
-                                "Weitere Informationen finden Sie in der Datenschutzerklärung."
-                    )
-                    .setNegativeButton("Abbrechen") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .setNeutralButton("Datenschutzerklärung") { _, _ ->
-
-                        startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                "https://it‑at‑m.github.io/nimux/privacy.html".toUri()
-                            )
-                        )
-
-                    }
-                    .setPositiveButton("Weiter zum Login") { dialog, _ ->
-                        dialog.dismiss()
-                        viewModel.loginConfirmed()
-                    }
-                    .show()
-
-            }
-
         }
     }
 

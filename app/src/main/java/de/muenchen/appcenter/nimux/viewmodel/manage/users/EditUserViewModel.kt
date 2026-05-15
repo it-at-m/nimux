@@ -43,6 +43,8 @@ class EditUserViewModel @Inject constructor(
     val useProductAi get():LiveData<Boolean> = _useProductAI
     private val _faceSkipsPin = MutableLiveData(user.faceSkipsPin)
     val faceSkipsPin get():LiveData<Boolean> = _faceSkipsPin
+    private val _faceFeatureNeeded = MutableLiveData(user.faceFeatureNeeded)
+    val faceFeatureNeeded get():LiveData<Boolean> = _faceFeatureNeeded
 
     var oldPinText: String = ""
     var newPinText: String = ""
@@ -93,6 +95,10 @@ class EditUserViewModel @Inject constructor(
         }
     }
 
+    fun switchFaceFeatureNeeded() {
+        _faceFeatureNeeded.value = !faceFeatureNeeded.value!!
+    }
+
     fun saveChanges(pinConfirmed: Boolean = false) {
         var pinIsConfirmed = pinConfirmed
         val stateShowCredit = showCredit.value
@@ -102,6 +108,7 @@ class EditUserViewModel @Inject constructor(
         val stateChangePin = changePin.value
         val useProdAi = useProductAi.value
         val facePinSkipper = faceSkipsPin.value
+        val faceFeatureNeeded = faceFeatureNeeded.value
         val stateOldPinInput = oldPinText
         val stateNewPinInput = newPinText
         val stateConfirmPinInput = confirmNewPinText
@@ -157,7 +164,8 @@ class EditUserViewModel @Inject constructor(
                         stateProcessData!!,
                         newPin,
                         useProdAi ?: false,
-                        facePinSkipper ?: false
+                        facePinSkipper ?: false,
+                        faceFeatureNeeded ?:false
                     )
                 } else _showNetworkHint.value = true
                 _showProgressBar.value = false

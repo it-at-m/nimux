@@ -20,7 +20,7 @@ object FaceDetectionModule {
         val options = FaceDetectorOptions.Builder()
             .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
             .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
-            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
+            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
             .setMinFaceSize(0.20f)
             .enableTracking()
             .build()

@@ -459,8 +459,10 @@ class HomeProductFragment : Fragment() {
             val comingFromFace =
                 HomeProductFragmentArgs.fromBundle(requireArguments()).fromFaceRecon
             val skipPinWithFace = comingFromFace && binding.user?.faceSkipsPin ?: false
-            if (binding.user?.pin == null || skipPinWithFace)
+            if (binding.user?.pin == null || skipPinWithFace) {
                 navToMultiBuyCheckout()
+                return@setOnClickListener
+            }
             if (binding.user?.pin != null) {
                 showEnterUserPin(binding.user!!, requireContext(), requireView()) {
                     navToMultiBuyCheckout()
@@ -647,8 +649,9 @@ class HomeProductFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        productAdapter.stopListening()
-
+        if (::productAdapter.isInitialized) {
+            productAdapter.stopListening()
+        }
     }
 
 

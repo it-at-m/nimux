@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,9 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.mlkit.vision.face.FaceDetector
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import de.muenchen.appcenter.nimux.R
 import de.muenchen.appcenter.nimux.databinding.FragmentAddUsersFaceBinding
 import de.muenchen.appcenter.nimux.util.recognition.CameraController
 import de.muenchen.appcenter.nimux.util.recognition.FaceProcessingAnalyzer
@@ -33,34 +33,22 @@ import kotlin.math.sqrt
 class AddUsersFaceFragment : Fragment() {
 
     private var _binding: FragmentAddUsersFaceBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding!! // non-null only between onCreateView and onDestroyView
 
     private var cameraProvider: ProcessCameraProvider? = null
 
+
     // samples which are collected for face recognition of one face
-    private val requiredSamples = 20
+    private val requiredSamples = 40
     private val collectedEmbeddings = mutableListOf<FloatArray>()
     private var isProcessing = false
-
-    @Inject
-    lateinit var cameraController: CameraController
-
-    @Inject
-    lateinit var analyzer: FaceProcessingAnalyzer
-
-    @Inject
-    lateinit var faceNet: SimilarityClassifier
-
-    @Inject
-    lateinit var faceRegistry: FaceRegistry
-
     private var lastSampleTime = 0L
+    private val sampleDelay = 400L// 0.4s between samples 400L
 
-    // time between each sample get collected
-    private val sampleDelay = 800L // 0.8 seconds
-
-    @Inject
-    lateinit var detector: FaceDetector
+    @Inject lateinit var cameraController: CameraController
+    @Inject lateinit var analyzer: FaceProcessingAnalyzer
+    @Inject lateinit var faceNet: SimilarityClassifier
+    @Inject lateinit var faceRegistry: FaceRegistry
 
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
@@ -73,10 +61,17 @@ class AddUsersFaceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddUsersFaceBinding.inflate(inflater, container, false)
+
         binding.cancelButton.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        checkPermission()
     }
 
     override fun onResume() {
@@ -107,21 +102,42 @@ class AddUsersFaceFragment : Fragment() {
         }
     }
 
-
     private fun startCamera() {
-
-        analyzer.onFacesUpdated = { faces, w, h ->
-            _binding?.faceoverlay?.setFaces(faces, w, h)
-        }
+            var warningShown = false
+            analyzer.onFacesUpdated = { faces, w, h, rotation ->
+                _binding?.faceoverlay?.setFaces(faces, w, h, rotation, true)
+                if (faces.size > 1 && !warningShown) {
+                    warningShown = true
+                    cameraController.stopCamera()
+                    collectedEmbeddings.clear()
+                    _binding?.sampleCounter?.text =
+                        "${getString(R.string.getting_face)} ${collectedEmbeddings.size} / $requiredSamples"
+                    requireActivity().runOnUiThread {
+                        MaterialAlertDialogBuilder(requireContext())
+                            .setTitle(getString(R.string.face_detection_warning))
+                            .setMessage(getString(R.string.face_detection_warning_text)+"\n"+getString(R.string.face_detection_warning_register))
+                            .setPositiveButton("OK") { _, _ ->
+                                warningShown = false; cameraController.startCamera(
+                                viewLifecycleOwner,
+                                binding.previewView,
+                                analyzer
+                            )
+                            }
+                            .show()
+                    }
+                }
+            }
 
         analyzer.onFaceCropped = { faceBitmap ->
-            registerFace(faceBitmap)
+            if (isAdded && _binding != null) {
+                registerFace(faceBitmap)
+            }
             analyzer.resetProcessing()
         }
 
         cameraController.startCamera(
             viewLifecycleOwner,
-            binding.previewView,
+            _binding!!.previewView,
             analyzer
         )
     }
@@ -130,47 +146,36 @@ class AddUsersFaceFragment : Fragment() {
      * Register Face and make multi sample registration.
      */
     private fun registerFace(faceBitmap: Bitmap?) {
+        if (!isAdded || faceBitmap == null) return
+
         val currentTime = System.currentTimeMillis()
-        if (currentTime - lastSampleTime < sampleDelay) {
-            return
-        }
+        if (currentTime - lastSampleTime < sampleDelay) return
         lastSampleTime = currentTime
 
         val results = faceNet.recognizeImage(faceBitmap, true)
         if (results.isEmpty()) return
 
-        // 🔹 Normalisiertes Embedding
         val rawEmbedding = results[0].extra[0]
         val normalizedEmbedding = normalizeEmbedding(rawEmbedding)
-
         collectedEmbeddings.add(normalizedEmbedding)
 
-        binding.sampleCounter.text =
-            "Gesicht wird erfasst ${collectedEmbeddings.size} / $requiredSamples"
+        _binding?.sampleCounter?.text =
+            "${getString(R.string.getting_face)} ${collectedEmbeddings.size} / $requiredSamples"
 
-        Timber.d("Sample ${collectedEmbeddings.size} collected, embedding normed")
+        Timber.d("Sample ${collectedEmbeddings.size} collected, embedding normalized")
 
         if (collectedEmbeddings.size >= requiredSamples) {
-
             isProcessing = true
             cameraProvider?.unbindAll()
 
-            val averaged = averageEmbeddings(collectedEmbeddings)
-            val normalizedAveraged = normalizeEmbedding(averaged)
 
-            val user =
-                AddUsersFaceFragmentArgs.fromBundle(requireArguments())
-                    .currentUser
-
-            faceRegistry.registerUser(user.stringSortID, normalizedAveraged)
+            val user = AddUsersFaceFragmentArgs.fromBundle(requireArguments()).currentUser
+            faceRegistry.registerUser(user.stringSortID, collectedEmbeddings)
 
             Timber.d("Embedding registered for UserID: ${user.stringSortID}")
 
-            Toast.makeText(
-                requireContext(),
-                "Gesicht erfolgreich gespeichert",
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(requireContext(), "Gesicht erfolgreich gespeichert", Toast.LENGTH_LONG)
+                .show()
 
             findNavController().popBackStack()
         }
@@ -182,13 +187,9 @@ class AddUsersFaceFragment : Fragment() {
         return embedding.map { (it / norm).toFloat() }.toFloatArray()
     }
 
-    private fun averageEmbeddings(
-        embeddings: List<FloatArray>
-    ): FloatArray {
-
+    private fun averageEmbeddings(embeddings: List<FloatArray>): FloatArray {
         val length = embeddings[0].size
         val avg = FloatArray(length)
-
         for (i in 0 until length) {
             var sum = 0f
             for (embedding in embeddings) {
@@ -196,7 +197,6 @@ class AddUsersFaceFragment : Fragment() {
             }
             avg[i] = sum / embeddings.size
         }
-
         return avg
     }
 }

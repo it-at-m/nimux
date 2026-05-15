@@ -66,16 +66,30 @@
             app:layout_constraintStart_toEndOf="@id/donate_cardview"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.camera.view.PreviewView
+                android:id="@+id/previewView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-        <androidx.camera.view.PreviewView
-            android:id="@+id/previewView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <de.muenchen.appcenter.nimux.util.recognition.FaceOverlayView
+                android:id="@+id/overlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-        <de.muenchen.appcenter.nimux.util.recognition.FaceOverlayView
-            android:id="@+id/overlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/instruction_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="32dp"
+                android:background="?attr/colorPrimary"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:elevation="4dp"
+                android:visibility="gone" />
 
         </FrameLayout>
 
@@ -85,6 +99,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin_large"
+            android:layout_marginEnd="636dp"
+            android:layout_marginBottom="48dp"
             android:text="@string/select_user_manually_button"
             app:icon="@drawable/ic_round_person_scan"
             app:layout_constraintBottom_toBottomOf="parent"
