@@ -47,12 +47,21 @@ object FaceRecognitionModule {
 
         val gson = Gson()
         for ((key, value) in encryptedPrefs.all) {
-            val list = gson.fromJson(value as String, Array<Float>::class.java)
-            val floatArray = list.toFloatArray()
-            val rec = SimilarityClassifier.Recognition(key, key, 0f, RectF())
-            rec.setExtra(arrayOf(floatArray))
-            classifier.register(key, rec)
-            Timber.d("Key: $key")
+            try {
+                val embeddings: Array<FloatArray> =
+                    gson.fromJson(value as String, Array<FloatArray>::class.java)
+
+                val rec = SimilarityClassifier.Recognition(key, key, 0f, RectF())
+
+                rec.setExtra(embeddings)
+
+                classifier.register(key, rec)
+
+                Timber.d("Reloaded key: $key with ${embeddings.size} embeddings")
+
+            } catch (e: Exception) {
+                Timber.e(e, "Fehler beim Laden von Key: $key. Übersprungen.")
+            }
         }
 
         return classifier
@@ -76,13 +85,23 @@ object FaceRecognitionModule {
 
         val gson = Gson()
 
+        // TypeToken
+        val type = object : com.google.gson.reflect.TypeToken<List<FloatArray>>() {}.type
+
         for ((key, value) in encryptedPrefs.all) {
-            val list = gson.fromJson(value as String, Array<Float>::class.java)
-            val floatArray = list.toFloatArray()
-            val rec = SimilarityClassifier.Recognition(key, key, 0f, RectF())
-            rec.setExtra(arrayOf(floatArray))
-            this.register(key, rec)
-            Timber.d("Reloaded key: $key")
+            try {
+                val embeddings: List<FloatArray> = gson.fromJson(value as String, type)
+
+                val rec = SimilarityClassifier.Recognition(key, key, 0f, RectF())
+
+                rec.setExtra(embeddings.toTypedArray())
+
+                this.register(key, rec)
+                Timber.d("Reloaded key: $key with ${embeddings.size} embeddings")
+
+            } catch (e: Exception) {
+                Timber.e(e, "Fehler beim Laden von Key: $key. Übersprungen.")
+            }
         }
     }
 }

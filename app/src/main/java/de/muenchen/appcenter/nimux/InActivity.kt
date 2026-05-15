@@ -65,9 +65,11 @@ class InActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_in)
-
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+        binding = ActivityInBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         isFullscreen = true
 

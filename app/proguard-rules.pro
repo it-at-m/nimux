@@ -19,3 +19,22 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# LiteRT
+-keep class com.google.ai.edge.litert.** { *; }
+
+# Firestore data classes
+-keepclassmembers class de.muenchen.appcenter.nimux.model.** {
+  <fields>;
+}
+-keepclassmembers class de.muenchen.appcenter.nimux.view.manage.** {
+  <fields>;
+}
+-keepclassmembers class de.muenchen.appcenter.nimux.util.** {
+  <fields>;
+}
+
+# Gson serialization for Retrofit
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class com.google.gson.** { *; }

@@ -51,8 +51,6 @@ class SignInViewModel @Inject constructor(private val userSessionManager: UserSe
     val userLoggedIn: LiveData<Boolean>
         get() = _userLoggedIn
 
-    val showPrivacyDialog = MutableLiveData<Boolean>()
-
     private val _showProgressBar = MutableLiveData<Boolean>()
     val showProgressBar: LiveData<Boolean>
         get() = _showProgressBar
@@ -120,13 +118,9 @@ class SignInViewModel @Inject constructor(private val userSessionManager: UserSe
         pwEmpty.value = pwInput.value?.isEmpty()
 
         if (!emailEmpty.value!! && !pwEmpty.value!!) {
-            showPrivacyDialog.value = true
-        }
-    }
-
-    fun loginConfirmed() {
-        viewModelScope.launch {
-            trySignIn()
+            viewModelScope.launch {
+                trySignIn()
+            }
         }
     }
 

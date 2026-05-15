@@ -396,4 +396,15 @@
     <string name="error_displaying_qr">There was an error displaying the QR code</string>
     <string name="no_pin_set_overview_toast">No PIN set. You can only change your preferences with the help of an admin</string>
     <string name="no_admin_toast">This can only be accessed from administrator accounts</string>
+    <string name="privacy_notice">Firebase Authentication is used for login. Your email address and technical information such as IP address and timestamps of login attempts may be processed. Further information can be found in the privacy policy.</string>
+    <string name="privacy_notice_title">Privacy Notice</string>
+    <string name="privacy_policy">privacy policy</string>
+    <string name="system_color">System Color</string>
+    <string name="changelog"> Version NO NAME (3.1.0?)\n - Fixed a bug leading to crashing the app while creating face data\n - Fixed a bug causing the misfit of bounding box\n - Changed login design\n - Added changelog\n - If multiple faces are detected, a warning will be shown.</string>
+    <string name="face_detection_warning">Face Detection Warning</string>
+    <string name="face_detection_warning_text">More than one face was recognized. Please make sure that there is only one face in the image!</string>
+    <string name="face_detection_warning_register">The process of adding facial data will restart and all collected data will be deleted.</string>
+    <string name="getting_face">Getting face</string>
+    <string name="face_feature">Face feature needed to continue</string>
+    <string name="eye_close">Please close one eye</string>
 </resources>

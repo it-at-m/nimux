@@ -38,6 +38,7 @@ import de.muenchen.appcenter.nimux.util.UserSessionManager
 import de.muenchen.appcenter.nimux.util.faceRecognitionPrefKey
 import de.muenchen.appcenter.nimux.util.hideKeyboard
 import de.muenchen.appcenter.nimux.util.standbyBoolPrefKey
+import de.muenchen.appcenter.nimux.util.systemColorPrefKey
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -61,6 +62,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         prepareEnterTransition()
+
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val selectedColor = sharedPrefs.getString(systemColorPrefKey, "default")
+
+        when (selectedColor) {
+            "green" -> setTheme(R.style.AppTheme_Green)
+            "purple" -> setTheme(R.style.AppTheme_Purple)
+            "red" -> setTheme(R.style.AppTheme_Red)
+            "orange" -> setTheme(R.style.AppTheme_Orange)
+            "blue" -> setTheme(R.style.AppTheme_Blue)
+            else -> setTheme(R.style.AppTheme)
+        }
+
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
@@ -475,5 +489,4 @@ class MainActivity : AppCompatActivity() {
             interpolator = FastOutSlowInInterpolator()
         }
     }
-
 }

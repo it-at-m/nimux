@@ -24,6 +24,89 @@
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="@dimen/default_margin"
+            android:text="@string/system_color"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="4dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/color_option_blue"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="#2196F3"
+                    app:cardCornerRadius="24dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/color_option_red"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="#F44336"
+                    app:cardCornerRadius="24dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/color_option_green"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="#4CAF50"
+                    app:cardCornerRadius="24dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/color_option_orange"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="#FF9800"
+                    app:cardCornerRadius="24dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/color_option_purple"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="#9C27B0"
+                    app:cardCornerRadius="24dp"
+                    app:strokeWidth="0dp" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/default_margin"
             android:text="@string/standby_settings_section_title"
             android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
             android:textColor="?attr/colorPrimary"
@@ -150,8 +233,6 @@
             android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginBottom="10dp"
             android:textAppearance="?textAppearanceCaption" />
-
-
     </LinearLayout>
 
 </ScrollView>

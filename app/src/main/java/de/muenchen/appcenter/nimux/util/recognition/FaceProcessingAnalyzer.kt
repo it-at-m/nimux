@@ -1,6 +1,7 @@
 package de.muenchen.appcenter.nimux.util.recognition
 
 import android.graphics.Bitmap
+import android.graphics.Matrix
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
@@ -16,7 +17,7 @@ class FaceProcessingAnalyzer @Inject constructor(
 ) : ImageAnalysis.Analyzer {
 
     var onFaceCropped: ((Bitmap) -> Unit)? = null
-    var onFacesUpdated: ((List<Face>, Int, Int) -> Unit)? = null
+    var onFacesUpdated: ((List<Face>, Int, Int, Int) -> Unit)? = null
 
     private var isProcessing = false
 
@@ -28,9 +29,11 @@ class FaceProcessingAnalyzer @Inject constructor(
             return
         }
 
+        val rotation = imageProxy.imageInfo.rotationDegrees
+
         val image = InputImage.fromMediaImage(
             mediaImage,
-            imageProxy.imageInfo.rotationDegrees
+            rotation
         )
 
         detector.process(image)
@@ -47,7 +50,8 @@ class FaceProcessingAnalyzer @Inject constructor(
                 onFacesUpdated?.invoke(
                     validFaces,
                     imageProxy.width,
-                    imageProxy.height
+                    imageProxy.height,
+                    rotation
                 )
 
                 if (validFaces.isNotEmpty() && !isProcessing) {
@@ -58,9 +62,14 @@ class FaceProcessingAnalyzer @Inject constructor(
                     biggestFace?.let { face ->
 
                         val bitmap = imageProxy.toBitmap()
+                        val rotatedBitmap =
+                            rotateBitmap(bitmap, rotation)
+
                         val faceBitmap =
-                            FaceValidations.cropFace(bitmap, face.boundingBox)
-                                ?: return@let
+                            FaceValidations.cropFace(
+                                rotatedBitmap,
+                                face.boundingBox
+                            ) ?: return@let
 
                         isProcessing = true
                         onFaceCropped?.invoke(faceBitmap)
@@ -74,5 +83,22 @@ class FaceProcessingAnalyzer @Inject constructor(
 
     fun resetProcessing() {
         isProcessing = false
+    }
+
+    private fun rotateBitmap(bitmap: Bitmap, rotationDegrees: Int): Bitmap {
+        if (rotationDegrees == 0) return bitmap
+
+        val matrix = Matrix()
+        matrix.postRotate(rotationDegrees.toFloat())
+
+        return Bitmap.createBitmap(
+            bitmap,
+            0,
+            0,
+            bitmap.width,
+            bitmap.height,
+            matrix,
+            true
+        )
     }
 }

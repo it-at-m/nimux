@@ -2,7 +2,6 @@ package de.muenchen.appcenter.nimux.util.recognition
 
 import android.content.Context
 import android.graphics.RectF
-import android.util.Log
 import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -37,16 +36,54 @@ class FaceRegistry @Inject constructor(
 
     private val gson = Gson()
 
-    fun registerUser(userId: String, embedding: FloatArray) {
-        val json = gson.toJson(embedding.toList())
+    //similar embeddings sorted out using filterdEmbedding function
+    fun registerUser(userId: String, embeddings: List<FloatArray>) {
+        val filtered = filteredEmbeddings(embeddings)
+
+        val json = gson.toJson(filtered)
         encryptedPrefs.edit() { putString(userId, json) }
 
         val rec = SimilarityClassifier.Recognition(userId, userId, 0f, RectF())
-        rec.extra = arrayOf(embedding)
+        rec.extra = filtered.toTypedArray()
+
         faceNet.register(userId, rec)
 
-        Timber.d("User registered: $userId")
+        Timber.d("User registered: $userId with ${filtered.size} embeddings (filtered)")
     }
+
+    fun filteredEmbeddings(embeddings: List<FloatArray>): MutableList<FloatArray>{
+        val filtered = mutableListOf<FloatArray>()
+        val threshold = 0.5f
+
+        for (emb in embeddings) {
+
+            var isDifferent = true
+
+            for (existing in filtered) {
+                if (findDistance(existing, emb) < threshold) {
+                    isDifferent = false
+                    break
+                }
+            }
+
+            if (isDifferent) {
+                filtered.add(emb)
+            }
+        }
+        return filtered
+    }
+
+    fun findDistance(emb: FloatArray, knownEmb: FloatArray): Float {
+        var distance = 0f
+
+        for (i in emb.indices) {
+            val diff = emb[i] - knownEmb[i]
+            distance += diff * diff
+        }
+
+        return kotlin.math.sqrt(distance)
+    }
+
 
     fun unregisterUser(userId: String) {
         encryptedPrefs.edit().remove(userId).apply()
@@ -56,12 +93,20 @@ class FaceRegistry @Inject constructor(
 
     fun reloadFromPrefs() {
         for ((key, value) in encryptedPrefs.all) {
-            val list = gson.fromJson(value as String, Array<Float>::class.java)
-            val floatArray = list.toFloatArray()
-            val rec = SimilarityClassifier.Recognition(key, key, 0f, RectF())
-            rec.extra = arrayOf(floatArray)
-            faceNet.register(key, rec)
-            Timber.d("Reloaded key: $key")
+            try {
+                val embeddings: Array<FloatArray> = gson.fromJson(value as String, Array<FloatArray>::class.java)
+
+                val rec = SimilarityClassifier.Recognition(key, key, 0f, RectF())
+
+                rec.setExtra(embeddings)
+
+                faceNet.register(key, rec)
+
+                Timber.d("Reloaded key: $key with ${embeddings.size} embeddings")
+
+            } catch (e: Exception) {
+                Timber.e(e, "Fehler beim Laden von Key: $key. Übersprungen.")
+            }
         }
     }
 
