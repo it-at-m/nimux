@@ -117,7 +117,7 @@ dependencies {
 
     implementation "androidx.security:security-crypto:1.1.0"
 
-    implementation "com.google.dagger:hilt-android:2.52"
+    implementation "com.google.dagger:hilt-android:2.59.2"
     ksp "com.google.dagger:hilt-compiler:2.52"
 
     // used for logging
