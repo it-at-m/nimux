@@ -15,6 +15,7 @@ data class User(
     val pin: String? = null,
     val useProductAI: Boolean? = null,
     val faceSkipsPin: Boolean = false,
+    val faceFeatureNeeded: Boolean = false,
     var emojiIcon: String? = null,
     var boldEnabled: Boolean? = null,
     var nameColor: NameColors? = null,

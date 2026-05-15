@@ -1,7 +1,6 @@
 package de.muenchen.appcenter.nimux.util
 
 import android.graphics.Typeface
-import android.util.Log
 import android.util.TypedValue
 import android.view.HapticFeedbackConstants
 import android.widget.TextView

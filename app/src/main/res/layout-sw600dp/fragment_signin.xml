@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -11,8 +12,8 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
         android:id="@+id/top_layout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -31,20 +32,18 @@
             app:layout_constraintTop_toTopOf="@id/top_layout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="@dimen/tablet_layout_width"
-                android:layout_gravity="center|top"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/default_layout_padding">
 
                 <TextView
                     android:id="@+id/login_fragment_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sign_in"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
                     android:textColor="?colorOnBackground"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -75,6 +74,7 @@
                     android:layout_marginTop="@dimen/group_margin"
                     android:hint="@string/password"
                     android:importantForAutofill="no"
+                    app:endIconMode="password_toggle"
                     app:errorEnabled="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/login_fragment_email_input">
@@ -86,6 +86,68 @@
                         android:inputType="textPassword"
                         android:text="@={viewModel.pwInput}" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/logoImageView"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:src="@drawable/ic_logo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/login_fragment_pw_input" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/info_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/logoImageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/logoImageView"
+                    app:layout_constraintTop_toTopOf="@id/logoImageView"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:text="@string/privacy_notice_title"
+                            android:textSize="20dp"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/privacy_notice"
+                            android:textSize="16sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/privacy_policy_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="4dp"
+                            android:minHeight="48dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="@string/privacy_policy"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
@@ -93,11 +155,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/button_layout"
             android:layout_width="@dimen/tablet_layout_width"
-            android:paddingTop="@dimen/button_layout_padding"
-            android:paddingBottom="@dimen/button_layout_padding"
-            android:paddingEnd="@dimen/default_layout_padding"
-            android:paddingStart="@dimen/default_layout_padding"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/default_layout_padding"
+            android:paddingTop="@dimen/button_layout_padding"
+            android:paddingEnd="@dimen/default_layout_padding"
+            android:paddingBottom="@dimen/button_layout_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -107,9 +169,9 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/button_height"
-                android:visibility="visible"
                 android:onClick="@{() -> viewModel.createClick()}"
                 android:text="@string/create_account"
+                android:visibility="visible"
                 app:layout_constraintBaseline_toBaselineOf="@id/login_fragment_login_button"
                 app:layout_constraintStart_toStartOf="parent" />
 

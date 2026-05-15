@@ -44,6 +44,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import timber.log.Timber;
+
 /**
  * Wrapper for frozen detection models trained using the Tensorflow Object Detection API:
  * - https://github.com/tensorflow/models/tree/master/research/object_detection
@@ -196,30 +198,49 @@ public class TFLiteObjectDetectionAPIModel
         return d;
     }
 
-    // looks for the nearest embeeding in the dataset (using L2 norm)
-    // and retrurns the pair <id, distance>
+    // looks for the nearest embedding in the dataset (using L2 norm)
+    // and returns the pair <id, distance>
     private Pair<String, Float> findNearest(float[] emb) {
 
         Pair<String, Float> ret = null;
+
+        //registered users
         for (Map.Entry<String, Recognition> entry : registered.entrySet()) {
             final String name = entry.getKey();
-            final float[] knownEmb = ((float[][]) entry.getValue().getExtra())[0];
 
-            float distance = 0;
-            for (int i = 0; i < emb.length; i++) {
-                float diff = emb[i] - knownEmb[i];
-                distance += diff * diff;
-            }
-            distance = (float) Math.sqrt(distance);
-            if (ret == null || distance < ret.second) {
-                ret = new Pair<>(name, distance);
+            final float[][] knownEmbs = entry.getValue().getExtra();
+            Timber.i("Datalength: " + knownEmbs.length + " " + name);
+
+            //saved faces
+            for (float[] knownEmb : knownEmbs) {
+
+                if (knownEmb == null || knownEmb.length != emb.length) {
+                    Timber.w("Size mismatch for " + name + ": expected " + emb.length + " but got " + (knownEmb != null ? knownEmb.length : "null"));
+                    continue;
+                }
+
+                float distance = findDistance(emb, knownEmb);
+                Timber.i("Distance: "+ distance + "from " + name);
+
+                //Recognition
+                if (ret == null || distance < ret.second) {
+                    ret = new Pair<>(name, distance);
+                }
             }
         }
 
         return ret;
-
     }
 
+    private float findDistance(float[] emb, float[] knownEmb) {
+        float distance = 0;
+        for (int i = 0; i < emb.length; i++) {
+            float diff = emb[i] - knownEmb[i];
+            distance += diff * diff;
+        }
+        distance = (float) Math.sqrt(distance);
+        return distance;
+    }
 
     @Override
     public List<Recognition> recognizeImage(final Bitmap bitmap, boolean storeExtra) {
@@ -241,9 +262,9 @@ public class TFLiteObjectDetectionAPIModel
                     imgData.put((byte) ((pixelValue >> 8) & 0xFF));
                     imgData.put((byte) (pixelValue & 0xFF));
                 } else { // Float model
-                    imgData.putFloat((((pixelValue >> 16) & 0xFF) - IMAGE_MEAN) / IMAGE_STD);
-                    imgData.putFloat((((pixelValue >> 8) & 0xFF) - IMAGE_MEAN) / IMAGE_STD);
-                    imgData.putFloat(((pixelValue & 0xFF) - IMAGE_MEAN) / IMAGE_STD);
+                    imgData.putFloat(((pixelValue >> 16) & 0xFF) / 255.0f);
+                    imgData.putFloat(((pixelValue >> 8) & 0xFF) / 255.0f);
+                    imgData.putFloat((pixelValue & 0xFF) / 255.0f);
                 }
             }
         }
