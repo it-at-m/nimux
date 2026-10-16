@@ -7,4 +7,4 @@ jobs:
   dependency-review:
     runs-on: ubuntu-latest
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review@7768a71df3e9e50ca240e2a69a31c4910e1a8ea0 # v1.0.31
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review@808f574bd8867b31524b254679fc34fb1fd78ea2 # v1.6.2
